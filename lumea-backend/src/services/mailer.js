@@ -3,6 +3,7 @@ import { Outbox } from '../repositories/index.js';
 import { id, nowIso } from '../lib/ids.js';
 import { logger } from '../lib/logger.js';
 import { usd } from '../lib/money.js';
+import { env } from '../config/env.js';
 
 // Outbox pattern: business logic only enqueues. The worker (src/jobs/worker.js)
 // delivers asynchronously — a crashed send never loses an email, and retries
