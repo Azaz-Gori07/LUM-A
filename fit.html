@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Fit Room — LUMÉA</title>
+<meta name="description" content="Two numbers, thirty seconds — find your LUMÉA size, your sister sizes, and the piece cut for you.">
+<meta name="theme-color" content="#F4EEE4">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..800;1,9..144,300..800&family=Archivo:wdth,wght@75..125,300..800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/lumea.css">
+<style>
+.fit-hero{padding:22vh 6vw 8vh}
+.fit-lead{margin-top:3vh;max-width:44ch;color:var(--ink2)}
+/* finder */
+.finder{padding:6vh 6vw 12vh;display:grid;grid-template-columns:1fr 1fr;gap:7vw;align-items:start}
+.sel-group{margin-bottom:3.4vh}
+.sel-lab{font-size:.62rem;font-weight:700;font-stretch:120%;letter-spacing:.24em;
+  color:var(--ink2);margin-bottom:.8rem;text-transform:uppercase}
+.sel-row{display:flex;flex-wrap:wrap;gap:8px}
+.sel{min-width:52px;height:44px;border:1px solid var(--line);background:transparent;
+  font-size:.92rem;font-weight:500;transition:.3s}
+.sel:hover{background:var(--blush)}
+.sel.active{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.f-result{border:1px solid var(--line);padding:2.2rem;background:#F8F3EA;
+  position:sticky;top:96px}
+.f-result .kicker{margin-bottom:1.4rem}
+.fr-size{font-family:var(--f-serif);font-weight:390;font-size:clamp(3rem,5.5vw,4.6rem);line-height:1.1}
+.fr-prod{display:flex;gap:1.3rem;align-items:center;margin:2vh 0}
+.fr-thumb{width:86px;aspect-ratio:3/4;overflow:hidden;flex:none;background:var(--blush)}
+.fr-thumb img{width:100%;height:100%}
+.fr-rec{font-size:.92rem;color:var(--ink2);max-width:40ch}
+.fr-rec em{font-style:italic;font-family:var(--f-serif);color:var(--rose)}
+.fx-track{position:relative;height:1px;background:var(--line);margin:2.6vh 0 0}
+.fx-mark{position:absolute;left:50%;top:-5px;width:11px;height:11px;background:var(--rose);
+  transform:translateX(-50%) rotate(45deg);transition:left .8s cubic-bezier(.3,1.4,.4,1)}
+.fx-ticks{display:flex;justify-content:space-between;margin-top:1rem;
+  font-size:.56rem;font-weight:600;font-stretch:120%;letter-spacing:.18em;color:var(--ink2)}
+.fr-actions{margin-top:2.4vh}
+.fr-actions .btn{margin-right:1rem;margin-bottom:1rem}
+/* sisters */
+.sis{padding:10vh 6vw 14vh}
+.sis-diagram{display:flex;align-items:center;justify-content:center;gap:0;
+  margin-top:6vh;flex-wrap:wrap}
+.sis-node{border:1px solid var(--line);padding:1.2rem 1.6rem;min-width:150px;
+  text-align:center;transition:.3s;background:var(--bg)}
+.sis-node small{display:block;font-size:.55rem;font-weight:700;font-stretch:120%;
+  letter-spacing:.18em;color:var(--ink2);margin-bottom:.35em;text-transform:uppercase}
+.sis-node b{font-family:var(--f-serif);font-weight:390;font-size:1.7rem}
+.sis-node:hover:not(.off):not(.active){background:var(--blush)}
+.sis-node.active{background:var(--ink);border-color:var(--ink)}
+.sis-node.active small{color:var(--rose2)}
+.sis-node.active b{color:var(--bg)}
+.sis-node.off{opacity:.35;cursor:not-allowed}
+.sis-conn{width:70px;height:1px;background:var(--line);flex:none}
+.sis-conn-label{font-size:.55rem;font-weight:700;font-stretch:120%;letter-spacing:.16em;
+  color:var(--inkL);text-transform:uppercase;margin-bottom:.6rem;text-align:center}
+/* chart */
+.chart{padding:4vh 6vw 14vh}
+.chart-wrap{overflow-x:auto;margin-top:5vh}
+.schart{border-collapse:collapse;width:100%;min-width:600px}
+.schart th,.schart td{border:1px solid var(--line);text-align:center;
+  padding:.7rem .5rem;font-family:var(--f-serif);font-weight:400;font-size:1.05rem;min-width:70px}
+.schart thead th,.schart tbody th{font-family:var(--f-sans);font-size:.6rem;
+  font-weight:700;font-stretch:120%;letter-spacing:.2em;color:var(--ink2);text-transform:uppercase}
+.schart tbody th{background:#F8F3EA}
+.schart td{cursor:pointer;transition:background .25s;color:var(--ink)}
+.schart td:hover{background:var(--blush)}
+.schart td.hl{background:var(--blush)}
+.schart td.active{background:var(--ink);color:var(--bg)}
+.chart-note{margin-top:1.2rem;font-size:.72rem;color:var(--ink2)}
+/* field notes meters */
+.fnotes{padding:4vh 6vw 12vh}
+.fn-list{margin-top:5vh;max-width:900px}
+.fn-row{display:grid;grid-template-columns:200px 1fr;gap:2.5rem;align-items:center;
+  padding:1.6rem 0;border-top:1px solid var(--line)}
+.fn-row:last-child{border-bottom:1px solid var(--line)}
+.fn-name{font-family:var(--f-serif);font-weight:480;font-size:1.25rem}
+.fn-name em{display:block;font-size:.8rem;font-weight:340;color:var(--ink2)}
+.fn-meter{position:relative}
+.fn-note{font-size:.82rem;color:var(--ink2);margin-top:.6rem}
+/* accordion */
+.guide{padding:4vh 6vw 14vh}
+.acc{margin-top:5vh;max-width:820px}
+.acc-item{border-top:1px solid var(--line)}
+.acc-item:last-child{border-bottom:1px solid var(--line)}
+.acc-btn{width:100%;display:flex;justify-content:space-between;align-items:center;
+  gap:2rem;padding:1.5rem 0;text-align:left;font-family:var(--f-serif);
+  font-weight:420;font-size:1.3rem}
+.acc-btn .lucide{flex:none;transition:transform .4s var(--ease)}
+.acc-item.open .acc-btn .lucide{transform:rotate(45deg)}
+.acc-body{max-height:0;overflow:hidden;transition:max-height .5s var(--ease)}
+.acc-body p{padding-bottom:1.6rem;color:var(--ink2);max-width:62ch}
+/* CTA */
+.fit-cta{padding:4vh 6vw 18vh;text-align:center}
+.fit-cta .actions{display:flex;gap:1.2rem;justify-content:center;margin-top:4vh;flex-wrap:wrap}
+.fit-cta .note{margin-top:2vh;font-size:.72rem;color:var(--ink2)}
+@media (max-width:1000px){
+  .finder{grid-template-columns:1fr}
+  .f-result{position:static}
+  .sis-conn{width:40px}
+  .fn-row{grid-template-columns:1fr;gap:1rem}
+}
+</style>
+</head>
+<body data-page="fit">
+<main id="main">
+
+  <!-- HERO -->
+  <section class="fit-hero">
+    <p class="kicker">05 — THE FIT ROOM</p>
+    <h1 class="display" data-lines>
+      <span class="rl"><span class="rli">Two numbers.</span></span>
+      <span class="rl"><span class="rli">Thirty <em>seconds.</em></span></span>
+    </h1>
+    <p class="fit-lead rv">No tape measure, no guessing under fluorescent light. Two choices, one recommendation — and your size travels with you: every piece you add to the bag is cut to this fit.</p>
+  </section>
+
+  <!-- FINDER -->
+  <section class="finder" id="finder">
+    <div>
+      <div class="sel-group" data-kind="band" role="group" aria-label="Band size">
+        <p class="sel-lab">Band</p>
+        <div class="sel-row" id="band-row">
+          <button class="sel" data-v="30">30</button><button class="sel" data-v="32">32</button>
+          <button class="sel active" data-v="34">34</button><button class="sel" data-v="36">36</button>
+          <button class="sel" data-v="38">38</button><button class="sel" data-v="40">40</button>
+        </div>
+      </div>
+      <div class="sel-group" data-kind="cup" role="group" aria-label="Cup size">
+        <p class="sel-lab">Cup</p>
+        <div class="sel-row" id="cup-row">
+          <button class="sel" data-v="A">A</button><button class="sel" data-v="B">B</button>
+          <button class="sel active" data-v="C">C</button><button class="sel" data-v="D">D</button>
+          <button class="sel" data-v="DD">DD</button><button class="sel" data-v="E">E</button>
+          <button class="sel" data-v="F">F</button>
+        </div>
+      </div>
+      <p class="sel-lab rv">BAND SNUG &amp; LEVEL · TWO FINGERS UNDER · CUP NO GAP, NO SPILL</p>
+    </div>
+    <div class="f-result rv" aria-live="polite">
+      <p class="kicker solo" style="margin-bottom:.6rem">YOUR LUMÉA SIZE</p>
+      <p class="fr-size" id="fx-size">34C</p>
+      <div class="fr-prod">
+        <div class="fr-thumb"><img id="fr-img" src="https://z-cdn-media.chatglm.cn/files/77a311be-4f67-46ca-a254-50b451ad457c.png?auth_key=1888669986-ad4da6606a1048d396241fd726e2f2e4-0-2c1b5bb477633ead98b1d09055e4e0e2" class="c-full cw-porcelain" alt="Recommended piece"></div>
+        <p class="fr-rec" id="fx-rec"></p>
+      </div>
+      <div class="fx-track"><span class="fx-mark" id="fx-mark"></span></div>
+      <div class="fx-ticks"><span>RUNS SMALL</span><span>TRUE</span><span>GENEROUS</span></div>
+      <div class="fr-actions">
+        <button class="btn btn-primary" id="fx-add"><span>Add Aerin — $68</span></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- SISTER SIZES -->
+  <section class="sis">
+    <p class="kicker rv">SAME VOLUME, DIFFERENT ARCHITECTURE</p>
+    <h2 class="display" data-lines>
+      <span class="rl"><span class="rli">Your sister</span></span>
+      <span class="rl"><span class="rli"><em>sizes.</em></span></span>
+    </h2>
+    <p class="fit-lead rv">Same volume, different architecture. If your exact size is out — or a band feels off — slide across. Tap a sister to try her on.</p>
+    <div class="sis-diagram rv">
+      <div>
+        <p class="sis-conn-label">Tighter band · fuller cup</p>
+        <button class="sis-node" id="sis-l" aria-label="Try smaller band, fuller cup"><small>SISTER</small><b>32D</b></button>
+      </div>
+      <div class="sis-conn" aria-hidden="true"></div>
+      <div>
+        <p class="sis-conn-label">Your size</p>
+        <button class="sis-node active" id="sis-c" aria-label="Current size"><small>CURRENT</small><b>34C</b></button>
+      </div>
+      <div class="sis-conn" aria-hidden="true"></div>
+      <div>
+        <p class="sis-conn-label">Roomier band · lighter cup</p>
+        <button class="sis-node" id="sis-r" aria-label="Try larger band, lighter cup"><small>SISTER</small><b>36B</b></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- SIZE CHART -->
+  <section class="chart">
+    <p class="kicker rv">THE MATRIX</p>
+    <h2 class="display" data-lines>
+      <span class="rl"><span class="rli">Every size,</span></span>
+      <span class="rl"><span class="rli">one <em>tap.</em></span></span>
+    </h2>
+    <div class="chart-wrap rv">
+      <table class="schart" id="schart" aria-label="Size chart — click a cell to select your size"></table>
+    </div>
+    <p class="chart-note rv">Your selection is highlighted. Tap any cell to make it yours — the finder, sisters and bag follow along.</p>
+  </section>
+
+  <!-- FIELD NOTES -->
+  <section class="fnotes">
+    <p class="kicker rv">FIELD NOTES — HOW EACH PIECE RUNS</p>
+    <h2 class="display" data-lines>
+      <span class="rl"><span class="rli">Cut</span></span>
+      <span class="rl"><span class="rli"><em>differently.</em></span></span>
+    </h2>
+    <div class="fn-list">
+      <div class="fn-row rv"><div class="fn-name">AERIN<em>— the wireless sculpt</em></div>
+        <div class="fn-meter"><div class="fx-track"><span class="fn-mk" data-pos="50"></span></div>
+        <div class="fx-ticks"><span>SMALL</span><span>TRUE</span><span>GENEROUS</span></div>
+        <p class="fn-note">Runs true. Right in the middle of the range — holds its shape all day.</p></div></div>
+      <div class="fn-row rv"><div class="fn-name">NOÉ<em>— the lace balconette</em></div>
+        <div class="fn-meter"><div class="fx-track"><span class="fn-mk" data-pos="38"></span></div>
+        <div class="fx-ticks"><span>SMALL</span><span>TRUE</span><span>GENEROUS</span></div>
+        <p class="fn-note">A touch small in the cup — between cups, take the fuller one.</p></div></div>
+      <div class="fn-row rv"><div class="fn-name">LUNE<em>— the seamless second-skin</em></div>
+        <div class="fn-meter"><div class="fx-track"><span class="fn-mk" data-pos="64"></span></div>
+        <div class="fx-ticks"><span>SMALL</span><span>TRUE</span><span>GENEROUS</span></div>
+        <p class="fn-note">Knit relaxes to you over two weeks — generous by design, on purpose.</p></div></div>
+      <div class="fn-row rv"><div class="fn-name">VELA<em>— the silk triangle</em></div>
+        <div class="fn-meter"><div class="fx-track"><span class="fn-mk" data-pos="47"></span></div>
+        <div class="fx-ticks"><span>SMALL</span><span>TRUE</span><span>GENEROUS</span></div>
+        <p class="fn-note">Bias-cut silk — true, with a half-size of grace either way.</p></div></div>
+    </div>
+  </section>
+
+  <!-- GUIDE / FAQ -->
+  <section class="guide">
+    <p class="kicker rv">THE FIT GUIDE</p>
+    <h2 class="display" data-lines>
+      <span class="rl"><span class="rli">Asked,</span></span>
+      <span class="rl"><span class="rli"><em>answered.</em></span></span>
+    </h2>
+    <div class="acc rv">
+      <div class="acc-item">
+        <button class="acc-btn" aria-expanded="false">Where should the band sit?<i data-lucide="plus"></i></button>
+        <div class="acc-body"><p>Level, all day. If it rides up at the back, the band is too big — size down and cup up. The band carries the support; the straps are only steering.</p></div>
+      </div>
+      <div class="acc-item">
+        <button class="acc-btn" aria-expanded="false">Between cup sizes?<i data-lucide="plus"></i></button>
+        <div class="acc-body"><p>Spill at the edge — take the fuller cup. Gap at the top — take the smaller. Genuinely between both? Write to the fit team; a human answers within a day.</p></div>
+      </div>
+      <div class="acc-item">
+        <button class="acc-btn" aria-expanded="false">How tight is too tight?<i data-lucide="plus"></i></button>
+        <div class="acc-body"><p>Two fingers slide under the band; three don’t. It should feel like a handshake, not a grip.</p></div>
+      </div>
+      <div class="acc-item">
+        <button class="acc-btn" aria-expanded="false">Between bands?<i data-lucide="plus"></i></button>
+        <div class="acc-body"><p>Take the smaller band. Memory knit relaxes to you over about two weeks — never the other way around — so snug-then-perfect beats perfect-then-loose.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="fit-cta">
+    <h2 class="display" data-lines>
+      <span class="rl"><span class="rli">Shop with</span></span>
+      <span class="rl"><span class="rli"><em>your size.</em></span></span>
+    </h2>
+    <div class="actions rv">
+      <a class="btn btn-primary magnetic" href="collection.html"><span>THE COLLECTION</span></a>
+      <a class="btn magnetic" href="anatomy.html"><span>WHY IT FITS</span></a>
+    </div>
+    <p class="note rv">Your size is saved — bag items will default to it.</p>
+  </section>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+<script src="https://unpkg.com/lucide@0.454.0/dist/umd/lucide.min.js"></script>
+<script src="assets/lumea.js"></script>
+<script>
+(function(){
+'use strict';
+const L=window.LUMEA,P=L.PRODUCTS,G=L.gsap;
+const CUPS=['A','B','C','D','DD','E','F'];
+const BANDS=[30,32,34,36,38,40];
+let fit=L.getFit();
+
+/* ---------- recommendation ---------- */
+function recFor(){
+  const ci=CUPS.indexOf(fit.cup);
+  if(ci>=4)return{id:'lune',pos:70,note:'For fuller busts, LUNE redistributes weight through the cup wall itself — lift without a single wire.'};
+  if(ci<=1)return{id:'vela',pos:34,note:'Lighter profiles get bias-cut silk that skims instead of scaffolding. VELA was cut for exactly this.'};
+  return{id:'aerin',pos:50,note:'Right in the middle of the range — AERIN’s bonded sculpt runs true and holds its shape all day.'};
+}
+function renderFit(anim){
+  const r=recFor(),p=P[r.id];
+  document.getElementById('fx-size').textContent=fit.band+fit.cup;
+  document.getElementById('fx-rec').innerHTML=`Cut for you: <em>${p.name} — ${p.sub}</em>. ${r.note}`;
+  document.getElementById('fx-mark').style.left=r.pos+'%';
+  const img=document.getElementById('fr-img');
+  img.className=p.crop+' '+L.CW[p.cw].cls;
+  img.alt=p.name+' — recommended for '+fit.band+fit.cup;
+  const btn=document.getElementById('fx-add');
+  btn.dataset.id=r.id;btn.dataset.cw=p.cw;
+  btn.querySelector('span').textContent=`Add ${p.name} — $${p.price}`;
+  if(anim&&G&&!L.reduced)
+    gsap.fromTo('#fx-rec',{y:12,opacity:0},{y:0,opacity:1,duration:.5,ease:'power2.out'});
+}
+/* ---------- selectors ---------- */
+function syncSelectors(){
+  document.querySelectorAll('#band-row .sel').forEach(b=>b.classList.toggle('active',+b.dataset.v===fit.band));
+  document.querySelectorAll('#cup-row .sel').forEach(b=>b.classList.toggle('active',b.dataset.v===fit.cup));
+}
+function changed(anim){
+  L.setFit(fit);
+  syncSelectors();renderFit(anim);renderSisters();renderChart();
+}
+document.querySelectorAll('#band-row .sel').forEach(b=>b.addEventListener('click',()=>{
+  fit.band=+b.dataset.v;changed(true);}));
+document.querySelectorAll('#cup-row .sel').forEach(b=>b.addEventListener('click',()=>{
+  fit.cup=b.dataset.v;changed(true);}));
+document.getElementById('fx-add').addEventListener('click',function(){
+  L.addToBag(this.dataset.id,{cw:this.dataset.cw,size:fit.band+fit.cup});});
+
+/* ---------- sister sizes ---------- */
+function sisOf(side){
+  const i=CUPS.indexOf(fit.cup);
+  if(side==='l'){const b=fit.band-2,c=CUPS[i+1];return(b>=30&&c)?{band:b,cup:c}:null;}
+  const b=fit.band+2,c=CUPS[i-1];return(b<=40&&c)?{band:b,cup:c}:null;
+}
+function renderSisters(){
+  const l=sisOf('l'),r=sisOf('r');
+  const nl=document.getElementById('sis-l'),nr=document.getElementById('sis-r'),nc=document.getElementById('sis-c');
+  nl.classList.toggle('off',!l);nl.disabled=!l;
+  if(l)nl.querySelector('b').textContent=l.band+l.cup;
+  nr.classList.toggle('off',!r);nr.disabled=!r;
+  if(r)nr.querySelector('b').textContent=r.band+r.cup;
+  nc.querySelector('b').textContent=fit.band+fit.cup;
+}
+function pickSister(side){
+  const s=sisOf(side);if(!s)return;
+  fit={band:s.band,cup:s.cup};changed(true);
+  L.toast('Sister size '+s.band+s.cup+' — trying her on.');
+}
+document.getElementById('sis-l').addEventListener('click',()=>pickSister('l'));
+document.getElementById('sis-r').addEventListener('click',()=>pickSister('r'));
+document.getElementById('sis-c').addEventListener('click',()=>L.toast('Already yours — '+fit.band+fit.cup+'.'));
+
+/* ---------- live size chart ---------- */
+const table=document.getElementById('schart');
+(function build(){
+  let html='<thead><tr><th scope="col">Band \\ Cup</th>';
+  CUPS.forEach(c=>html+=`<th scope="col">${c}</th>`);
+  html+='</tr></thead><tbody>';
+  BANDS.forEach(b=>{
+    html+=`<tr><th scope="row">${b}</th>`;
+    CUPS.forEach(c=>{
+      html+=`<td role="button" tabindex="0" data-band="${b}" data-cup="${c}">${b}${c}</td>`;});
+    html+='</tr>';
+  });
+  table.innerHTML=html+'</tbody>';
+})();
+function renderChart(){
+  table.querySelectorAll('td').forEach(td=>{
+    const isBand=+td.dataset.band===fit.band,isCup=td.dataset.cup===fit.cup;
+    td.classList.toggle('hl',isBand||isCup);
+    td.classList.toggle('active',isBand&&isCup);
+  });
+}
+function cellPick(td){
+  fit={band:+td.dataset.band,cup:td.dataset.cup};changed(true);
+}
+table.addEventListener('click',e=>{
+  const td=e.target.closest('td');if(td)cellPick(td);});
+table.addEventListener('keydown',e=>{
+  const td=e.target.closest('td');
+  if(td&&(e.key==='Enter'||e.key===' ')){e.preventDefault();cellPick(td);}
+});
+
+/* ---------- field-note meters ---------- */
+document.querySelectorAll('.fn-mk').forEach(mk=>mk.style.left=mk.dataset.pos+'%');
+if(G&&!L.reduced)
+  document.querySelectorAll('.fn-row').forEach(row=>{
+    const mk=row.querySelector('.fn-mk');
+    gsap.fromTo(mk,{left:'50%'},{left:mk.dataset.pos+'%',duration:1.1,
+      ease:'power3.out',scrollTrigger:{trigger:row,start:'top 88%'}});
+  });
+
+/* ---------- accordion ---------- */
+document.querySelectorAll('.acc-btn').forEach(btn=>btn.addEventListener('click',()=>{
+  const item=btn.closest('.acc-item'),body=item.querySelector('.acc-body');
+  const open=item.classList.toggle('open');
+  btn.setAttribute('aria-expanded',open);
+  body.style.maxHeight=open?body.scrollHeight+'px':'0px';
+}));
+
+/* init */
+syncSelectors();renderFit(false);renderSisters();renderChart();
+})();
+</script>
+</body>
+</html>

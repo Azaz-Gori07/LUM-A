@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Worn By You — LUMÉA</title>
+<meta name="description" content="Unedited, unpaid, worn for weeks — the voices of the LUMÉA Skin Series, and a 60-day diary.">
+<meta name="theme-color" content="#F4EEE4">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..800;1,9..144,300..800&family=Archivo:wdth,wght@75..125,300..800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/lumea.css">
+<style>
+.v-hero{padding:22vh 6vw 8vh;display:grid;grid-template-columns:1.2fr .8fr;gap:6vw;align-items:end}
+.v-lead{margin-top:3vh;max-width:40ch;color:var(--ink2)}
+.v-stats{border-top:1px solid var(--line)}
+.v-stat{display:flex;justify-content:space-between;align-items:baseline;padding:1.1rem 0;
+  border-bottom:1px solid var(--line);font-size:.64rem;font-weight:700;
+  font-stretch:120%;letter-spacing:.2em;color:var(--ink2);text-transform:uppercase}
+.v-stat b{font-family:var(--f-serif);font-weight:390;font-size:1.6rem;letter-spacing:0;color:var(--ink)}
+/* filters */
+.v-filters{padding:2vh 6vw;display:flex;flex-wrap:wrap;gap:2.4rem;align-items:center;
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+/* wall */
+.wall{padding:8vh 6vw 10vh;columns:3;column-gap:2.6vw}
+.q{break-inside:avoid;margin-bottom:2.6vw;padding:1.8rem}
+.q-boxed{background:#EFE4D3;border:1px solid var(--line)}
+.q-bare{border:none;border-top:1px solid var(--line);padding-top:1.6rem}
+.q-lg blockquote{font-family:var(--f-serif);font-weight:400;
+  font-size:clamp(1.4rem,2.1vw,1.8rem);line-height:1.32}
+.q blockquote{font-family:var(--f-serif);font-weight:400;
+  font-size:1.2rem;line-height:1.38}
+.q blockquote em{font-style:italic;color:var(--rose)}
+.stars{display:flex;gap:7px;margin-bottom:1rem}
+.st{width:7px;height:7px;background:var(--rose);transform:rotate(45deg);display:block}
+.st.off{background:transparent;border:1px solid var(--line)}
+.q-meta{margin-top:1.2rem;font-size:.6rem;font-weight:700;font-stretch:120%;
+  letter-spacing:.2em;color:var(--rose);text-transform:uppercase}
+.q-meta span{color:var(--ink2)}
+.q-new{background:var(--ink);color:var(--bg);border:1px solid var(--ink)}
+.q-new .q-meta,.q-new .q-meta span{color:var(--rose2)}
+.q-new .st.off{border-color:var(--inkL)}
+/* diary */
+.diary{padding:12vh 6vw;position:relative}
+.d-entry{display:grid;grid-template-columns:auto 1fr;gap:3rem;max-width:880px;
+  margin-top:7vh;margin-left:var(--ml,0)}
+.d-day{font-family:var(--f-serif);font-weight:340;font-size:clamp(3rem,7vw,5.6rem);
+  line-height:1;color:transparent;-webkit-text-stroke:1px var(--line);user-select:none}
+.d-entry p{color:var(--ink2);max-width:48ch}
+.d-entry p em{font-family:var(--f-serif);font-style:italic;color:var(--rose)}
+.d-who{margin-top:.9rem;font-size:.6rem;font-weight:700;font-stretch:120%;
+  letter-spacing:.2em;color:var(--rose);text-transform:uppercase}
+/* add your voice */
+.yours{padding:8vh 6vw 16vh;border-top:1px solid var(--line)}
+.y-form{display:grid;grid-template-columns:1fr 1fr;gap:2.4rem;margin-top:5vh;max-width:820px}
+.y-field{display:flex;flex-direction:column;gap:.8rem}
+.y-lab{font-size:.6rem;font-weight:700;font-stretch:120%;letter-spacing:.24em;
+  color:var(--ink2);text-transform:uppercase}
+.y-input{background:transparent;border:none;border-bottom:1px solid var(--ink);
+  padding:.7em .2em;font-family:var(--f-serif);font-size:1.1rem;color:var(--ink);border-radius:0}
+.y-input:focus{outline:none;border-color:var(--rose)}
+.y-input.bad{border-color:var(--rose)}
+textarea.y-input{resize:vertical;min-height:96px;line-height:1.5}
+select.y-input{font-family:var(--f-sans);font-size:.9rem;cursor:pointer}
+option{color:var(--ink)}
+.st-input{display:flex;gap:10px;padding:.4em 0}
+.st-btn{width:26px;height:26px;display:grid;place-items:center}
+.st-btn i{width:10px;height:10px;background:var(--line);transform:rotate(45deg);display:block;transition:.2s}
+.st-btn:hover i{background:var(--rose2)}
+.st-btn.on i{background:var(--rose)}
+.y-actions{grid-column:1/-1;display:flex;align-items:center;gap:1.6rem;flex-wrap:wrap}
+.y-err{font-size:.8rem;color:var(--rose);min-height:1.2em}
+/* CTA */
+.v-cta{padding:2vh 6vw 18vh;text-align:center}
+.v-cta .actions{display:flex;gap:1.2rem;justify-content:center;margin-top:4vh;flex-wrap:wrap}
+@media (max-width:1000px){
+  .v-hero{grid-template-columns:1fr;gap:4vh}
+  .wall{columns:2}
+  .d-entry{margin-left:0!important}
+  .y-form{grid-template-columns:1fr}
+}
+@media (max-width:640px){.wall{columns:1}}
+</style>
+</head>
+<body data-page="voices">
+<main id="main">
+
+  <!-- HERO -->
+  <section class="v-hero">
+    <div>
+      <p class="kicker">06 — WORN BY YOU</p>
+      <h1 class="display" data-lines>
+        <span class="rl"><span class="rli">Worn by</span></span>
+        <span class="rl"><span class="rli"><em>you.</em></span></span>
+      </h1>
+      <p class="v-lead rv">Unedited. Unpaid. Worn for weeks before anyone typed a word. Every quote below belongs to a real fit — size included, because that’s the part that actually helps.</p>
+    </div>
+    <div class="v-stats rv">
+      <div class="v-stat"><span>Average rating</span><b>4.9</b></div>
+      <div class="v-stat"><span>Worn-days logged</span><b>12,408</b></div>
+      <div class="v-stat"><span>Re-buy rate</span><b>96%</b></div>
+    </div>
+  </section>
+
+  <!-- FILTERS -->
+  <div class="v-filters" role="group" aria-label="Filter by product">
+    <button class="fbtn active" data-f="all" style="font-size:.7rem;font-weight:700;font-stretch:120%;letter-spacing:.2em;color:var(--ink2);position:relative;padding:.35em 0;text-transform:uppercase">All</button>
+    <button class="fbtn" data-f="aerin" style="font-size:.7rem;font-weight:700;font-stretch:120%;letter-spacing:.2em;color:var(--ink2);position:relative;padding:.35em 0;text-transform:uppercase">Aerin</button>
+    <button class="fbtn" data-f="noe" style="font-size:.7rem;font-weight:700;font-stretch:120%;letter-spacing:.2em;color:var(--ink2);position:relative;padding:.35em 0;text-transform:uppercase">Noé</button>
+    <button class="fbtn" data-f="lune" style="font-size:.7rem;font-weight:700;font-stretch:120%;letter-spacing:.2em;color:var(--ink2);position:relative;padding:.35em 0;text-transform:uppercase">Lune</button>
+    <button class="fbtn" data-f="vela" style="font-size:.7rem;font-weight:700;font-stretch:120%;letter-spacing:.2em;color:var(--ink2);position:relative;padding:.35em 0;text-transform:uppercase">Vela</button>
+  </div>
+
+  <!-- QUOTE WALL -->
+  <section class="wall" id="wall" aria-label="Reviews"></section>
+
+  <!-- DIARY -->
+  <section class="diary">
+    <p class="kicker rv">THE 60-DAY DIARY</p>
+    <h2 class="display" data-lines>
+      <span class="rl"><span class="rli">One woman.</span></span>
+      <span class="rl"><span class="rli">Sixty <em>days.</em></span></span>
+    </h2>
+    <div class="d-entry rv" style="--ml:0">
+      <span class="d-day" aria-hidden="true">01</span>
+      <div><p>“Suspicious, honestly. Bras that promise comfort have lied to me before. <em>I wore it anyway.</em>”</p><p class="d-who">MARA L. — VELA · 30B</p></div>
+    </div>
+    <div class="d-entry rv" style="--ml:18%">
+      <span class="d-day" aria-hidden="true">14</span>
+      <div><p>“I noticed today that I hadn’t noticed it. <em>That sentence is the entire review.</em>”</p><p class="d-who">MARA L. — VELA · 30B</p></div>
+    </div>
+    <div class="d-entry rv" style="--ml:6%">
+      <span class="d-day" aria-hidden="true">60</span>
+      <div><p>“Re-bought in Noir. The Porcelain one is still perfectly fine, somewhere in my drawer — <em>I just wanted the ritual.</em>”</p><p class="d-who">MARA L. — VELA ×2 · 30B</p></div>
+    </div>
+  </section>
+
+  <!-- ADD YOUR VOICE -->
+  <section class="yours" id="yours">
+    <p class="kicker rv">JOIN THE WALL</p>
+    <h2 class="display" data-lines>
+      <span class="rl"><span class="rli">Add your</span></span>
+      <span class="rl"><span class="rli"><em>voice.</em></span></span>
+    </h2>
+    <form class="y-form rv" id="y-form" novalidate>
+      <div class="y-field">
+        <label class="y-lab" for="y-name">Your name</label>
+        <input class="y-input" id="y-name" type="text" autocomplete="name" placeholder="Camille R.">
+      </div>
+      <div class="y-field">
+        <label class="y-lab" for="y-prod">What do you wear?</label>
+        <select class="y-input" id="y-prod">
+          <option value="aerin">AERIN — the wireless sculpt</option>
+          <option value="noe">NOÉ — the lace balconette</option>
+          <option value="lune">LUNE — the seamless second-skin</option>
+          <option value="vela">VELA — the silk triangle</option>
+        </select>
+      </div>
+      <div class="y-field">
+        <span class="y-lab" id="y-rate-lab">Your rating</span>
+        <div class="st-input" role="group" aria-labelledby="y-rate-lab" id="y-stars">
+          <button type="button" class="st-btn" data-v="1" aria-label="1 of 5"><i></i></button>
+          <button type="button" class="st-btn" data-v="2" aria-label="2 of 5"><i></i></button>
+          <button type="button" class="st-btn" data-v="3" aria-label="3 of 5"><i></i></button>
+          <button type="button" class="st-btn" data-v="4" aria-label="4 of 5"><i></i></button>
+          <button type="button" class="st-btn" data-v="5" aria-label="5 of 5"><i></i></button>
+        </div>
+      </div>
+      <div class="y-field">
+        <label class="y-lab" for="y-quote">One honest sentence</label>
+        <textarea class="y-input" id="y-quote" placeholder="The first bra I’ve ever…"></textarea>
+      </div>
+      <div class="y-actions">
+        <button class="btn btn-primary magnetic" type="submit"><span>PUT IT ON THE WALL</span></button>
+        <p class="y-err" id="y-err" aria-live="polite"></p>
+      </div>
+    </form>
+  </section>
+
+  <!-- CTA -->
+  <section class="v-cta">
+    <h2 class="display" data-lines>
+      <span class="rl"><span class="rli">Become the</span></span>
+      <span class="rl"><span class="rli"><em>next voice.</em></span></span>
+    </h2>
+    <div class="actions rv">
+      <a class="btn btn-primary magnetic" href="collection.html"><span>SHOP THE COLLECTION</span></a>
+      <a class="btn magnetic" href="fit.html"><span>FIND YOUR FIT</span></a>
+    </div>
+  </section>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+<script src="https://unpkg.com/lucide@0.454.0/dist/umd/lucide.min.js"></script>
+<script src="assets/lumea.js"></script>
+<script>
+(function(){
+'use strict';
+const L=window.LUMEA,P=L.PRODUCTS,G=L.gsap;
+const wall=document.getElementById('wall');
+const SIZES=['32C','34B','36DD','34C','30B','38D','36C'];
+const QUOTES=[
+ {t:'The first bra I’ve ever <em>forgotten</em> to take off.',n:'Camille R.',p:'aerin',r:5,cls:'q-bare q-lg'},
+ {t:'I stopped bracing for the 3 p.m. pinch. It just <em>never came.</em>',n:'Nadia K.',p:'lune',r:5,cls:'q-boxed'},
+ {t:'Bought it in every colorway. Then bought <em>backups.</em>',n:'Yuki T.',p:'noe',r:5,cls:'q-bare'},
+ {t:'It survived a fourteen-hour flight and a wedding in the same week.',n:'Priya S.',p:'aerin',r:5,cls:'q-boxed q-lg'},
+ {t:'I dress faster now. One less decision <em>before coffee.</em>',n:'Mara L.',p:'vela',r:5,cls:'q-bare'},
+ {t:'The straps took a week to settle. Since then — <em>zero</em> adjustments, six months in.',n:'Elena V.',p:'lune',r:4,cls:'q-boxed'},
+ {t:'Sheer enough to feel like me, structured enough to feel <em>held.</em>',n:'Sofia M.',p:'noe',r:5,cls:'q-bare q-lg'},
+ {t:'After my surgery, wires were off the table. Support, luckily, <em>wasn’t.</em>',n:'Amara J.',p:'aerin',r:5,cls:'q-boxed'},
+ {t:'The silk one is basically sleepwear that passes as <em>lingerie.</em>',n:'Inès F.',p:'vela',r:5,cls:'q-bare'},
+ {t:'I checked at noon out of habit, not need.',n:'Bea C.',p:'aerin',r:5,cls:'q-boxed q-lg'}
+];
+const USER=[];
+let filter='all';
+
+function stars(r){let s='<span class="stars" role="img" aria-label="'+r+' of 5 stars">';
+  for(let i=0;i<5;i++)s+='<i class="st'+(i<r?'':' off')+'"></i>';return s+'</span>';}
+function qHTML(q,i){
+  const size=q.s||SIZES[i%SIZES.length];
+  const pname=P[q.p]?P[q.p].name:q.p;
+  return `<div class="q ${q.cls}">${stars(q.r)}
+    <blockquote>${q.t}</blockquote>
+    <p class="q-meta">${q.n} — ${pname} · <span>${size}</span></p></div>`;
+}
+function render(anim){
+  const list=(USER.concat(QUOTES)).filter(q=>filter==='all'||q.p===filter);
+  wall.innerHTML=list.map(qHTML).join('')||
+    '<p style="color:var(--ink2)">Nothing yet — be the first voice on this wall.</p>';
+  document.querySelectorAll('.v-filters .fbtn').forEach(b=>
+    b.classList.toggle('active',b.dataset.f===filter));
+  if(anim&&G&&!L.reduced)
+    gsap.from('.q',{y:34,opacity:0,duration:.8,stagger:.05,ease:'power3.out',clearProps:'all'});
+  L.refresh();
+}
+document.querySelectorAll('.v-filters .fbtn').forEach(b=>b.addEventListener('click',()=>{
+  if(b.dataset.f===filter)return;filter=b.dataset.f;render(true);}));
+
+/* ---------- star rating input ---------- */
+let rating=0;
+const starBtns=document.querySelectorAll('#y-stars .st-btn');
+function paintStars(){starBtns.forEach(b=>
+  b.classList.toggle('on',+b.dataset.v<=rating));}
+starBtns.forEach(b=>b.addEventListener('click',()=>{
+  rating=+b.dataset.v;paintStars();}));
+
+/* ---------- submit a real review ---------- */
+document.getElementById('y-form').addEventListener('submit',e=>{
+  e.preventDefault();
+  const name=document.getElementById('y-name'),
+        quote=document.getElementById('y-quote'),
+        prod=document.getElementById('y-prod'),
+        err=document.getElementById('y-err');
+  let ok=true;
+  [name,quote].forEach(f=>f.classList.remove('bad'));
+  if(!name.value.trim()){name.classList.add('bad');ok=false;}
+  if(quote.value.trim().length<8){quote.classList.add('bad');ok=false;}
+  if(!rating){ok=false;}
+  if(!ok){err.textContent='A name, one honest sentence, and a rating — that’s all we ask.';return;}
+  err.textContent='';
+  const esc=s=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  USER.unshift({t:esc(quote.value.trim()).replace(/\*/g,'<em>').replace(/\*/g,'</em>')||esc(quote.value.trim()),
+    n:esc(name.value.trim()),p:prod.value,r:rating,s:'just now',cls:'q-new'});
+  render(false);
+  if(G&&!L.reduced)gsap.from('.q-new',{y:-24,opacity:0,duration:.7,ease:'power3.out'});
+  L.toast('Thank you — your voice is on the wall.');
+  name.value='';quote.value='';rating=0;paintStars();
+  filter='all';render(false);
+  L.scrollToEl(wall);
+});
+
+render(false);
+})();
+</script>
+</body>
+</html>

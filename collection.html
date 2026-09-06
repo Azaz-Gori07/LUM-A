@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Collection — LUMÉA</title>
+<meta name="description" content="The LUMÉA Skin Series — six second-skin pieces, four constructions, zero wires. Shop the collection.">
+<meta name="theme-color" content="#F4EEE4">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..800;1,9..144,300..800&family=Archivo:wdth,wght@75..125,300..800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/lumea.css">
+<style>
+/* ---- shop hero ---- */
+.shop-hero{padding:22vh 6vw 8vh;display:grid;grid-template-columns:1.2fr .8fr;gap:6vw;align-items:end}
+.sh-lead{margin-top:3vh;max-width:36ch;color:var(--ink2)}
+.sh-stats{border-top:1px solid var(--line)}
+.sh-stat{display:flex;justify-content:space-between;align-items:baseline;padding:1.1rem 0;
+  border-bottom:1px solid var(--line);font-size:.66rem;font-weight:700;
+  font-stretch:120%;letter-spacing:.2em;color:var(--ink2);text-transform:uppercase}
+.sh-stat b{font-family:var(--f-serif);font-weight:390;font-size:1.5rem;letter-spacing:0;color:var(--ink)}
+.shop-strip{height:34vh;overflow:hidden;position:relative;margin-top:8vh}
+.shop-strip img{width:100%;height:100%}
+.strip-cap{position:absolute;left:4vw;bottom:1.2rem;font-size:.6rem;font-weight:600;
+  font-stretch:120%;letter-spacing:.22em;color:var(--ivory)}
+/* ---- filters ---- */
+.filters{position:sticky;top:60px;z-index:30;background:rgba(244,238,228,.92);
+  backdrop-filter:blur(12px);border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  padding:1.05rem 6vw;display:flex;flex-wrap:wrap;gap:2.4rem;align-items:center}
+.fbtn{font-size:.7rem;font-weight:700;font-stretch:120%;letter-spacing:.2em;color:var(--ink2);
+  position:relative;padding:.35em 0;text-transform:uppercase}
+.fbtn .fc{font-family:var(--f-serif);font-style:italic;font-weight:340;color:var(--inkL);
+  letter-spacing:0;margin-left:.4em;text-transform:none}
+.fbtn::after{content:'';position:absolute;left:0;bottom:0;width:100%;height:1px;
+  background:var(--ink);transform:scaleX(0);transform-origin:right;transition:transform .4s var(--ease)}
+.fbtn:hover{color:var(--ink)}
+.fbtn.active{color:var(--ink)}
+.fbtn.active::after{transform:scaleX(1);transform-origin:left}
+.fcount{margin-left:auto;font-size:.6rem;font-weight:700;font-stretch:120%;
+  letter-spacing:.24em;color:var(--ink2)}
+/* ---- staggered track masonry ---- */
+.shop-grid{display:flex;gap:3.4vw;padding:10vh 6vw 4vh;align-items:flex-start}
+.track{display:flex;flex-direction:column;gap:10vh}
+.track:nth-child(1){width:37%}
+.track:nth-child(2){width:31.5%;margin-top:14vh}
+.track:nth-child(3){width:26%;margin-top:30vh}
+.shop-item{position:relative}
+.si-num{position:absolute;top:-2.8rem;left:-.3rem;font-family:var(--f-serif);font-weight:340;
+  font-size:4.6rem;line-height:1;color:transparent;-webkit-text-stroke:1px var(--line);z-index:0;user-select:none}
+.si-media{position:relative;cursor:pointer}
+.si-frame{aspect-ratio:var(--ar,3/4);overflow:hidden;background:var(--blush);position:relative}
+.si-frame img{width:100%;height:100%;transition:transform .7s var(--ease)}
+.si-media:hover .si-frame img{transform:scale(1.05)}
+.si-swatches{position:absolute;left:14px;bottom:16px;display:flex;gap:8px;z-index:2}
+.sw{width:18px;height:18px;border-radius:50%;background:var(--swc);
+  border:1px solid rgba(36,27,21,.28);transition:transform .3s}
+.sw:hover{transform:scale(1.2)}
+.sw.active{outline:1px solid var(--ink);outline-offset:3px}
+.si-info{margin-top:1.1rem;display:flex;justify-content:space-between;gap:1rem;
+  align-items:baseline;flex-wrap:wrap}
+.si-name{font-family:var(--f-serif);font-weight:480;font-size:1.45rem}
+.si-name em{display:block;font-size:.95rem;font-weight:340;color:var(--ink2);margin-top:.1em}
+.si-price{font-family:var(--f-serif);font-size:1.25rem}
+.si-actions{margin-top:.9rem}
+/* ---- closing ---- */
+.shop-close{padding:16vh 6vw 18vh;text-align:center}
+.close-actions{display:flex;gap:1.2rem;justify-content:center;margin-top:4vh;flex-wrap:wrap}
+/* ---- quick view ---- */
+.qv{display:grid;grid-template-columns:.9fr 1.1fr;gap:2rem}
+.qv-media{aspect-ratio:3/4;overflow:hidden;background:var(--blush)}
+.qv-media img{width:100%;height:100%}
+.qv-name{font-family:var(--f-serif);font-weight:480;font-size:1.9rem}
+.qv-name em{display:block;font-size:1.05rem;font-weight:340;color:var(--ink2);margin-top:.1em}
+.qv-desc{margin-top:1rem;font-size:.9rem;color:var(--ink2);max-width:38ch}
+.qv-price{font-family:var(--f-serif);font-weight:400;font-size:1.4rem;margin-top:1.2rem}
+.qv-lab{font-size:.6rem;font-weight:700;font-stretch:120%;letter-spacing:.22em;
+  color:var(--ink2);margin:1.4rem 0 .7rem;text-transform:uppercase}
+.qv-sw{position:static;margin:0}
+.qv select{border:1px solid var(--line);background:transparent;padding:.7em 1em;
+  font:inherit;font-size:.85rem;color:var(--ink);border-radius:0;max-width:140px}
+.qv-actions{margin-top:1.8rem}
+@media (max-width:1000px){
+  .shop-hero{grid-template-columns:1fr;gap:4vh}
+  .shop-grid{display:block;padding:8vh 6vw 2vh}
+  .track{width:100%!important;margin-top:0!important;gap:9vh}
+  .si-num{font-size:3.4rem;top:-2rem}
+  .filters{position:static}
+  .fcount{margin-left:0;width:100%}
+  .qv{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body data-page="collection">
+<main id="main">
+
+  <!-- HERO -->
+  <section class="shop-hero">
+    <div>
+      <p class="kicker">02 — THE COLLECTION</p>
+      <h1 class="display" data-lines>
+        <span class="rl"><span class="rli">The Skin</span></span>
+        <span class="rl"><span class="rli"><em>Series.</em></span></span>
+      </h1>
+      <p class="sh-lead rv">Six pieces, four constructions, one rule: you should forget it by lunch. Filter by how it’s built — every piece below is wire-free by conviction, not compromise.</p>
+    </div>
+    <div class="sh-stats rv">
+      <div class="sh-stat"><span>PIECES</span><b>06</b></div>
+      <div class="sh-stat"><span>CONSTRUCTIONS</span><b>04</b></div>
+      <div class="sh-stat"><span>UNDERWIRES</span><b>00</b></div>
+      <div class="sh-stat"><span>ATELIERS</span><b>02</b></div>
+    </div>
+  </section>
+
+  <div class="shop-strip" data-para="1.2">
+    <img src="https://z-cdn-media.chatglm.cn/files/77a311be-4f67-46ca-a254-50b451ad457c.png?auth_key=1888669986-ad4da6606a1048d396241fd726e2f2e4-0-2c1b5bb477633ead98b1d09055e4e0e2" class="c-mid cw-champagne" alt="The Skin Series, worn in Champagne." loading="lazy">
+    <p class="strip-cap">THE SKIN SERIES — FW ’25 · WORN, NOT STYLED</p>
+  </div>
+
+  <!-- FILTERS -->
+  <div class="filters" role="group" aria-label="Filter by construction">
+    <button class="fbtn active" data-f="all">All<span class="fc">06</span></button>
+    <button class="fbtn" data-f="bonded">Bonded<span class="fc">02</span></button>
+    <button class="fbtn" data-f="lace">Lace<span class="fc">01</span></button>
+    <button class="fbtn" data-f="knit">Knit<span class="fc">02</span></button>
+    <button class="fbtn" data-f="silk">Silk<span class="fc">01</span></button>
+    <span class="fcount" id="fcount" aria-live="polite">SHOWING 06 / 06</span>
+  </div>
+
+  <!-- MASONRY RAIL -->
+  <section class="shop-grid" id="shop-grid" aria-label="Products"></section>
+
+  <!-- CLOSING -->
+  <section class="shop-close">
+    <h2 class="display" data-lines>
+      <span class="rl"><span class="rli">Still</span></span>
+      <span class="rl"><span class="rli"><em>deciding?</em></span></span>
+    </h2>
+    <div class="close-actions rv">
+      <a class="btn btn-primary magnetic" href="fit.html"><span>FIND YOUR FIT</span></a>
+      <a class="btn magnetic" href="anatomy.html"><span>SEE THE ANATOMY</span></a>
+    </div>
+  </section>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+<script src="https://unpkg.com/lucide@0.454.0/dist/umd/lucide.min.js"></script>
+<script src="assets/lumea.js"></script>
+<script>
+(function(){
+'use strict';
+const L=window.LUMEA,P=L.PRODUCTS,G=L.gsap;
+const IDS=['aerin','aerinlong','noe','lune','vela','lunebody'];
+const RATIO=['3/3.85','3/4.2','4/4.7','3/3.7','4/5','3/4'];
+const grid=document.getElementById('shop-grid');
+let filter='all',building=false;
+
+function swHTML(p){
+  return p.cws.map(c=>`<button class="sw ${c===p.cw?'active':''}" data-cw="${c}" style="--swc:${L.SWATCH[c]}" aria-label="${L.CW[c].label}"></button>`).join('');
+}
+function itemHTML(id){
+  const p=P[id],i=IDS.indexOf(id);
+  return `<article class="shop-item" data-id="${id}" data-tag="${p.tag}">
+    <span class="si-num" aria-hidden="true">${String(i+1).padStart(2,'0')}</span>
+    <div class="si-media" data-cursor="VIEW" role="button" tabindex="0" aria-label="Quick view ${p.name}">
+      <div class="si-frame" style="--ar:${RATIO[i%RATIO.length]}">
+        <img src="${L.IMG}" class="${p.crop} ${L.CW[p.cw].cls}" alt="${p.name} — ${p.sub}, in ${L.CW[p.cw].label}" loading="lazy" draggable="false">
+      </div>
+      <div class="si-swatches" role="group" aria-label="Colorway">${swHTML(p)}</div>
+    </div>
+    <div class="si-info"><h3 class="si-name">${p.name} <em>— ${p.sub.toLowerCase()}</em></h3><p class="si-price">$${p.price}</p></div>
+    <div class="si-actions"><button class="btn btn-add" data-add="${id}"><span>ADD TO BAG</span><i data-lucide="plus"></i></button></div>
+  </article>`;
+}
+function render(anim){
+  const list=IDS.filter(id=>filter==='all'||P[id].tag===filter);
+  const tracks=[[],[],[]];
+  list.forEach((id,i)=>tracks[i%3].push(id));
+  grid.innerHTML=tracks.map(t=>`<div class="track">${t.map(itemHTML).join('')}</div>`).join('');
+  document.querySelectorAll('.fbtn').forEach(b=>b.classList.toggle('active',b.dataset.f===filter));
+  document.getElementById('fcount').textContent='SHOWING '+String(list.length).padStart(2,'0')+' / '+String(IDS.length).padStart(2,'0');
+  L.icons();
+  if(anim&&G&&!L.reduced)
+    gsap.from('.shop-item',{y:44,opacity:0,duration:.9,stagger:.07,ease:'power3.out',clearProps:'all'});
+  L.refresh();
+}
+render(false);
+if(G&&!L.reduced)
+  gsap.from('.shop-item',{y:50,opacity:0,duration:1,stagger:.08,ease:'power3.out',delay:.55,clearProps:'all'});
+
+/* delegated interactions */
+grid.addEventListener('click',e=>{
+  const sw=e.target.closest('.sw');
+  if(sw){e.stopPropagation();
+    const art=sw.closest('.shop-item');
+    art.querySelectorAll('.sw').forEach(s=>s.classList.remove('active'));
+    sw.classList.add('active');
+    const img=art.querySelector('.si-frame img');
+    img.classList.remove('cw-porcelain','cw-rose','cw-noir','cw-champagne');
+    img.classList.add(L.CW[sw.dataset.cw].cls);
+    return;
+  }
+  const add=e.target.closest('[data-add]');
+  if(add){L.addToBag(add.dataset.add);return;}
+  const media=e.target.closest('.si-media');
+  if(media)quickView(media.closest('.shop-item').dataset.id);
+});
+grid.addEventListener('keydown',e=>{
+  if((e.key==='Enter'||e.key===' ')&&e.target.classList.contains('si-media')){
+    e.preventDefault();quickView(e.target.closest('.shop-item').dataset.id);}
+});
+
+/* filters */
+document.querySelectorAll('.fbtn').forEach(b=>b.addEventListener('click',()=>{
+  if(b.dataset.f===filter||building)return;
+  filter=b.dataset.f;
+  if(G&&!L.reduced){
+    building=true;
+    gsap.to('.shop-item',{opacity:0,y:16,duration:.28,stagger:.015,ease:'power2.in',
+      onComplete:()=>{building=false;render(true);}});
+  } else render(false);
+}));
+
+/* quick view */
+const CUPS=['A','B','C','D','DD'];
+function sizes(){const out=[];for(let b=30;b<=40;b+=2)CUPS.forEach(c=>out.push(b+c));return out;}
+function quickView(id){
+  const p=P[id],fit=L.getFit();
+  let cur=fit.band+fit.cup;
+  const sz=sizes();if(!sz.includes(cur))sz.unshift(cur);
+  let cw=p.cw;
+  L.openModal(`<div class="qv">
+    <div class="qv-media"><img id="qv-img" src="${L.IMG}" class="${p.crop} ${L.CW[p.cw].cls}" alt="${p.name} in ${L.CW[p.cw].label}"></div>
+    <div class="qv-info">
+      <p class="kicker solo" style="margin-bottom:1rem">${p.tag.toUpperCase()} — FW ’25</p>
+      <h3 class="qv-name">${p.name} <em>— ${p.sub.toLowerCase()}</em></h3>
+      <p class="qv-desc">${p.desc}</p>
+      <p class="qv-price">$${p.price}</p>
+      <p class="qv-lab">Colorway — <span id="qv-cwname">${L.CW[p.cw].label.toUpperCase()}</span></p>
+      <div class="si-swatches qv-sw" id="qv-sw">${swHTML(p)}</div>
+      <p class="qv-lab">Size</p>
+      <select id="qv-size" aria-label="Size">${sz.map(s=>`<option${s===cur?' selected':''}>${s}</option>`).join('')}</select>
+      <div class="qv-actions"><button class="btn btn-primary" id="qv-add"><span>ADD TO BAG — $${p.price}</span></button></div>
+    </div></div>`);
+  document.getElementById('qv-sw').addEventListener('click',e=>{
+    const b=e.target.closest('.sw');if(!b)return;
+    document.querySelectorAll('#qv-sw .sw').forEach(s=>s.classList.remove('active'));
+    b.classList.add('active');cw=b.dataset.cw;
+    const img=document.getElementById('qv-img');
+    img.classList.remove('cw-porcelain','cw-rose','cw-noir','cw-champagne');
+    img.classList.add(L.CW[cw].cls);
+    document.getElementById('qv-cwname').textContent=L.CW[cw].label.toUpperCase();
+  });
+  document.getElementById('qv-add').addEventListener('click',()=>{
+    L.addToBag(id,{cw,size:document.getElementById('qv-size').value});
+  });
+}
+})();
+</script>
+</body>
+</html>

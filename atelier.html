@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Atelier — LUMÉA</title>
+<meta name="description" content="Nine weeks, thirty-four hands — inside the LUMÉA ateliers of Calais and Como.">
+<meta name="theme-color" content="#1E1610">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..800;1,9..144,300..800&family=Archivo:wdth,wght@75..125,300..800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/lumea.css">
+<style>
+body{background:var(--dark);color:var(--ivory)}
+.kicker{color:var(--inkL)} .kicker::after{background:var(--lineD)}
+.display em{color:var(--rose2)}
+.note{color:#B9A794}
+/* hero */
+.at-hero{padding:22vh 6vw 6vh}
+.at-lead{margin-top:3vh;max-width:44ch;color:#B9A794}
+.at-band{height:38vh;overflow:hidden;margin-top:7vh;position:relative}
+.at-band img{width:100%;height:100%}
+.at-cap{position:absolute;left:4vw;bottom:1.2rem;font-size:.6rem;font-weight:600;
+  font-stretch:120%;letter-spacing:.22em;color:var(--ivory)}
+.at-vert{position:absolute;right:22px;bottom:30vh;writing-mode:vertical-rl;
+  font-size:.6rem;font-weight:600;font-stretch:120%;letter-spacing:.34em;color:var(--inkL)}
+/* weeks timeline */
+.weeks{padding:12vh 6vw 6vh;position:relative}
+.w-line{position:absolute;left:calc(6vw + 4.6rem);top:6vh;bottom:6vh;width:1px;background:var(--lineD)}
+#w-fill{position:absolute;inset:0;background:var(--rose2);transform:scaleY(0);transform-origin:top}
+.week{display:grid;grid-template-columns:4.6rem 1fr;gap:3.5rem;padding:5vh 0;max-width:840px;position:relative}
+.w-num{font-family:var(--f-serif);font-weight:340;font-size:clamp(2.2rem,4vw,3.4rem);
+  line-height:1;color:transparent;-webkit-text-stroke:1px #4A3A2B}
+.w-title{font-size:.78rem;font-weight:700;font-stretch:120%;letter-spacing:.22em;
+  text-transform:uppercase;margin-bottom:.6rem}
+.w-text{color:#B9A794;max-width:52ch}
+/* hands */
+.hands{padding:8vh 6vw 14vh}
+.h-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 6vw;margin-top:5vh}
+.hand{display:flex;justify-content:space-between;align-items:baseline;gap:2rem;
+  padding:1.2rem 0;border-top:1px solid var(--lineD);transition:.3s}
+.hand:hover{padding-left:.6rem}
+.hand b{font-family:var(--f-serif);font-weight:480;font-size:1.15rem}
+.hand span{font-size:.64rem;font-weight:700;font-stretch:120%;letter-spacing:.2em;
+  color:var(--inkL);text-transform:uppercase;text-align:right}
+/* provenance */
+.prov{padding:4vh 6vw 14vh}
+.p-table{margin-top:5vh;max-width:900px}
+.p-row{display:grid;grid-template-columns:1.1fr 1.2fr .8fr;gap:2rem;padding:1.4rem 0;
+  border-top:1px solid var(--lineD);font-size:.9rem}
+.p-row:last-child{border-bottom:1px solid var(--lineD)}
+.p-row span{font-size:.64rem;font-weight:700;font-stretch:120%;letter-spacing:.2em;
+  color:var(--inkL);text-transform:uppercase;align-self:center}
+.p-row b{font-family:var(--f-serif);font-weight:400;font-size:1.05rem}
+/* inspection */
+.insp-wrap{padding:4vh 6vw 10vh}
+.insp{list-style:none;margin-top:5vh;columns:2;column-gap:6vw}
+.insp li{display:flex;gap:1rem;align-items:flex-start;padding:1rem 0;break-inside:avoid}
+.insp svg{flex:none;margin-top:.2rem}
+.insp path{stroke:var(--rose2);stroke-width:1.6;fill:none;
+  stroke-dasharray:24;stroke-dashoffset:24}
+.reduced .insp path{stroke-dashoffset:0}
+.insp span{font-size:.92rem;color:#CDBBA6}
+/* stamps */
+.stamps{display:flex;gap:3rem;flex-wrap:wrap;align-items:center;padding:4vh 6vw 16vh}
+.stamp{width:158px;height:158px;border:1px solid var(--rose2);border-radius:50%;
+  display:grid;place-items:center;text-align:center;transform:rotate(var(--r));
+  font-size:.58rem;font-weight:700;font-stretch:120%;letter-spacing:.24em;
+  color:var(--rose2);padding:1.4rem;text-transform:uppercase}
+.stamp em{display:block;font-family:var(--f-serif);font-style:italic;font-weight:340;
+  font-size:1.3rem;letter-spacing:0;text-transform:none;margin-bottom:.4rem}
+/* CTA */
+.at-cta{padding:4vh 6vw 18vh}
+.at-cta .actions{display:flex;gap:1.2rem;margin-top:4vh;flex-wrap:wrap}
+.at-cta .btn{border-color:var(--ivory);color:var(--ivory)}
+.at-cta .btn::before{background:var(--ivory)}
+.at-cta .btn:hover{color:var(--dark)}
+.at-cta .btn-primary{background:var(--rose2);border-color:var(--rose2);color:var(--dark)}
+.at-cta .btn-primary::before{background:var(--ivory)}
+@media (max-width:1000px){
+  .h-grid{grid-template-columns:1fr}
+  .insp{columns:1}
+  .p-row{grid-template-columns:1fr;gap:.5rem}
+  .w-line{left:6vw}
+  .week{grid-template-columns:1fr;gap:1rem}
+  .w-num{-webkit-text-stroke-color:var(--rose2);margin-bottom:.4rem}
+}
+</style>
+</head>
+<body data-page="atelier" data-theme="dark">
+<main id="main">
+
+  <!-- HERO -->
+  <section class="at-hero">
+    <p class="kicker">04 — THE ATELIER</p>
+    <h1 class="display" data-lines>
+      <span class="rl"><span class="rli">Nine weeks,</span></span>
+      <span class="rl"><span class="rli"><em>thirty-four hands.</em></span></span>
+    </h1>
+    <p class="at-lead rv">LUMÉA runs are cut, bonded and finished across two ateliers — Calais for the lace, Como for the knits. Nothing leaves until it survives a forty-point hand inspection. This is what slow actually costs, and why we pay it.</p>
+  </section>
+
+  <div class="at-band">
+    <img src="https://z-cdn-media.chatglm.cn/files/77a311be-4f67-46ca-a254-50b451ad457c.png?auth_key=1888669986-ad4da6606a1048d396241fd726e2f2e4-0-2c1b5bb477633ead98b1d09055e4e0e2" class="c-ana tint-dark" data-para="1.25" alt="The atelier, after hours — Aerin in Noir." loading="lazy">
+    <p class="at-cap">ATELIER Nº 04 — CALAIS, 22:41</p>
+    <p class="at-vert" aria-hidden="true">LEAVERS LOOM — EST. 1812</p>
+  </div>
+
+  <!-- THE WEEKS -->
+  <section class="weeks" id="weeks">
+    <div class="w-line" aria-hidden="true"><span id="w-fill"></span></div>
+    <p class="kicker kicker-dark rv">THE MAKING — A RUN, WEEK BY WEEK</p>
+    <div class="week rv"><span class="w-num">W01</span><div><h2 class="w-title">The sketch</h2><p class="w-text">One pencil, one block, forty fittings — until the line stops arguing with the body and starts agreeing with it.</p></div></div>
+    <div class="week rv"><span class="w-num">W02</span><div><h2 class="w-title">The block</h2><p class="w-text">Pattern geometry is frozen for the run. From here to W09, not a millimeter moves without three people signing it.</p></div></div>
+    <div class="week rv"><span class="w-num">W03</span><div><h2 class="w-title">Como mills the knit</h2><p class="w-text">Memory knit is loomed to spec — density mapped panel by panel, then rested 48 hours before anyone touches it.</p></div></div>
+    <div class="week rv"><span class="w-num">W05</span><div><h2 class="w-title">Bonding trials</h2><p class="w-text">Heat, pressure, dwell. Eleven attempts before the seam fuses flat and stays flat. Attempt twelve becomes the bra.</p></div></div>
+    <div class="week rv"><span class="w-num">W07</span><div><h2 class="w-title">The forty points</h2><p class="w-text">Every single piece, by hand, under 3× magnification. A quarter of the run never makes it past this week.</p></div></div>
+    <div class="week rv"><span class="w-num">W09</span><div><h2 class="w-title">The fold &amp; wrap</h2><p class="w-text">Tissue, wax seal, batch number in pencil. Then — and only then — it becomes something you can forget you’re wearing.</p></div></div>
+  </section>
+
+  <!-- THE HANDS -->
+  <section class="hands">
+    <p class="kicker kicker-dark rv">THE THIRTY-FOUR</p>
+    <h2 class="display" data-lines>
+      <span class="rl"><span class="rli">Signed,</span></span>
+      <span class="rl"><span class="rli"><em>by name.</em></span></span>
+    </h2>
+    <div class="h-grid rv">
+      <div class="hand"><b>M. Laurent</b><span>Pattern · 31 yrs</span></div>
+      <div class="hand"><b>A. Beaumont</b><span>Seam bonding · 12 yrs</span></div>
+      <div class="hand"><b>S. Ferraro</b><span>Calais lace · 9 yrs</span></div>
+      <div class="hand"><b>J. Okafor</b><span>Inspection · 6 yrs</span></div>
+      <div class="hand"><b>P. Nguyen</b><span>Cutting · 14 yrs</span></div>
+      <div class="hand"><b>R. Duval</b><span>Finishing · 22 yrs</span></div>
+      <div class="hand"><b>E. Marchetti</b><span>Silk · 17 yrs</span></div>
+      <div class="hand"><b>L. Moreau</b><span>Direction</span></div>
+    </div>
+  </section>
+
+  <!-- PROVENANCE -->
+  <section class="prov">
+    <p class="kicker kicker-dark rv">THE PROVENANCE LEDGER</p>
+    <h2 class="display" data-lines>
+      <span class="rl"><span class="rli">Every thread,</span></span>
+      <span class="rl"><span class="rli"><em>traceable.</em></span></span>
+    </h2>
+    <div class="p-table rv">
+      <div class="p-row"><b>Memory knit</b><span>Maglificio Beck</span><span>Como, IT</span></div>
+      <div class="p-row"><b>Calais lace</b><span>Dessange Leavers</span><span>Calais, FR</span></div>
+      <div class="p-row"><b>22-momme silk</b><span>Mantero setificio</span><span>Como, IT</span></div>
+      <div class="p-row"><b>Bonded elastics</b><span>Nùmen textile lab</span><span>Lyon, FR</span></div>
+    </div>
+  </section>
+
+  <!-- INSPECTION -->
+  <section class="insp-wrap">
+    <p class="kicker kicker-dark rv">W07 — THE FORTY POINTS, ABRIDGED</p>
+    <h2 class="display" data-lines>
+      <span class="rl"><span class="rli">Checked in</span></span>
+      <span class="rl"><span class="rli"><em>ink.</em></span></span>
+    </h2>
+    <ol class="insp rv">
+      <li><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M2.5 8.5 L6.5 12.5 L13.5 3.5"/></svg><span>Seam lies flat under 3× magnification</span></li>
+      <li><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M2.5 8.5 L6.5 12.5 L13.5 3.5"/></svg><span>Band recovers fully after ten pulls</span></li>
+      <li><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M2.5 8.5 L6.5 12.5 L13.5 3.5"/></svg><span>Cup symmetry within ±0.5 mm</span></li>
+      <li><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M2.5 8.5 L6.5 12.5 L13.5 3.5"/></svg><span>Zero strap slip under 5 kg load</span></li>
+      <li><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M2.5 8.5 L6.5 12.5 L13.5 3.5"/></svg><span>Dye fastness grade 4 or better</span></li>
+      <li><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M2.5 8.5 L6.5 12.5 L13.5 3.5"/></svg><span>All findings nickel-free</span></li>
+      <li><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M2.5 8.5 L6.5 12.5 L13.5 3.5"/></svg><span>Lies flat 24 h without twisting</span></li>
+      <li><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M2.5 8.5 L6.5 12.5 L13.5 3.5"/></svg><span>Lace scallops intact, edge to edge</span></li>
+      <li><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M2.5 8.5 L6.5 12.5 L13.5 3.5"/></svg><span>Silk momme verified per bolt</span></li>
+      <li><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M2.5 8.5 L6.5 12.5 L13.5 3.5"/></svg><span>Closure survives 5,000 cycles</span></li>
+      <li><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M2.5 8.5 L6.5 12.5 L13.5 3.5"/></svg><span>Skin-contact roughness under 8 µm</span></li>
+      <li><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M2.5 8.5 L6.5 12.5 L13.5 3.5"/></svg><span>Final hand-feel — signed off in ink</span></li>
+    </ol>
+  </section>
+
+  <!-- STAMPS -->
+  <div class="stamps">
+    <div class="stamp rv" style="--r:-6deg"><span><em>OEKO-TEX</em>STANDARD 100</span></div>
+    <div class="stamp rv" style="--r:4deg"><span><em>Small batch</em>RUN Nº — 04</span></div>
+    <div class="stamp rv" style="--r:-2deg"><span><em>Repairs</em>FOR LIFE</span></div>
+  </div>
+
+  <!-- CTA -->
+  <section class="at-cta">
+    <h2 class="display" data-lines>
+      <span class="rl"><span class="rli">Wear the</span></span>
+      <span class="rl"><span class="rli"><em>slow part.</em></span></span>
+    </h2>
+    <div class="actions rv">
+      <a class="btn btn-primary magnetic" href="collection.html"><span>SHOP THE RUN</span></a>
+      <a class="btn magnetic" href="voices.html"><span>WHO WEARS IT</span></a>
+    </div>
+  </section>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+<script src="https://unpkg.com/lucide@0.454.0/dist/umd/lucide.min.js"></script>
+<script src="assets/lumea.js"></script>
+<script>
+(function(){
+'use strict';
+const L=window.LUMEA,G=L.gsap;
+if(G&&!L.reduced){
+  /* the weeks line draws as you scroll */
+  gsap.to('#w-fill',{scaleY:1,ease:'none',
+    scrollTrigger:{trigger:'#weeks',start:'top 65%',end:'bottom 65%',scrub:true}});
+  /* inspection checks ink in */
+  document.querySelectorAll('.insp li').forEach(li=>{
+    const path=li.querySelector('path');if(!path)return;
+    gsap.to(path,{strokeDashoffset:0,duration:.6,ease:'power2.out',
+      scrollTrigger:{trigger:li,start:'top 92%'}});
+  });
+  /* stamps arrive */
+  gsap.from('.stamp',{opacity:0,y:24,duration:.8,stagger:.12,ease:'power3.out',
+    scrollTrigger:{trigger:'.stamps',start:'top 90%'}});
+}
+})();
+</script>
+</body>
+</html>

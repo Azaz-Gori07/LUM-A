@@ -1,0 +1,1672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LUMÉA — Intimates that hold you, not in.</title>
+<meta name="description" content="LUMÉA builds second-skin intimates — wireless, weightless, sewn to your geometry. Explore the Skin Series.">
+<meta name="theme-color" content="#F4EEE4">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..800;1,9..144,300..800&family=Archivo:wdth,wght@75..125,300..800&display=swap" rel="stylesheet">
+<style>
+/* ============ DESIGN TOKENS ============ */
+:root{
+  --bg:#F4EEE4; --bg1:#ECE2D3; --blush:#E6D8C6;
+  --ink:#241B15; --ink2:#6E5F52; --inkL:#A89684;
+  --line:#D8CABA; --lineD:#3B2F23;
+  --rose:#9A4E42; --rose2:#C08A73;
+  --dark:#1E1610; --dark2:#2A2017; --ivory:#F1E9DC;
+  --f-serif:'Fraunces',Georgia,'Times New Roman',serif;
+  --f-sans:'Archivo',Helvetica,Arial,sans-serif;
+  --ease:cubic-bezier(.76,0,.24,1);
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:auto}
+html.lock{overflow:hidden}
+body{
+  background:var(--bg); color:var(--ink);
+  font-family:var(--f-sans); font-size:16px; line-height:1.6;
+  overflow-x:clip; -webkit-font-smoothing:antialiased;
+}
+img{display:block;max-width:100%;-webkit-user-drag:none;user-select:none}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
+::selection{background:var(--ink);color:var(--bg)}
+:focus-visible{outline:2px solid var(--rose);outline-offset:3px}
+body.has-cursor, body.has-cursor a, body.has-cursor button{cursor:none}
+body.has-cursor #silk canvas{cursor:none}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.skip-link{position:fixed;top:10px;left:10px;z-index:500;background:var(--ink);color:var(--bg);
+  padding:.7em 1.2em;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;
+  transform:translateY(-300%);transition:transform .3s}
+.skip-link:focus{transform:translateY(0)}
+
+/* ============ FILM GRAIN ============ */
+.grain{position:fixed;inset:-80px;z-index:240;pointer-events:none;opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation:grain .7s steps(2) infinite}
+@keyframes grain{0%{transform:translate(0,0)}25%{transform:translate(-24px,18px)}
+  50%{transform:translate(14px,-30px)}75%{transform:translate(-10px,-14px)}100%{transform:translate(0,0)}}
+
+/* ============ TYPO UTILITIES ============ */
+.kicker{display:flex;align-items:center;gap:1rem;font-family:var(--f-sans);
+  font-size:.66rem;font-weight:600;font-stretch:120%;letter-spacing:.24em;
+  text-transform:uppercase;color:var(--ink2);margin-bottom:1.6rem}
+.kicker::after{content:'';height:1px;background:var(--line);flex:1}
+.kicker-dark{color:var(--inkL)}
+.kicker-dark::after{background:var(--lineD)}
+.display{font-family:var(--f-serif);font-weight:390;font-optical-sizing:auto;
+  font-size:clamp(2.7rem,6.6vw,6.2rem);line-height:1.02;letter-spacing:-.01em}
+.display em,.creed em{font-style:italic;font-weight:340;color:var(--rose)}
+#craft .display em{color:var(--rose2)}
+.rl{display:block;overflow:hidden}
+.rli{display:inline-block;will-change:transform}
+
+/* ============ COLORWAYS & CROPS (one photo, many frames) ============ */
+.cw-porcelain{filter:saturate(.85) brightness(1.04) contrast(.97)}
+.cw-rose{filter:sepia(.38) hue-rotate(-18deg) saturate(1.55) brightness(1)}
+.cw-noir{filter:grayscale(1) brightness(.42) contrast(1.12)}
+.cw-champagne{filter:sepia(.5) saturate(1.18) brightness(1.06) contrast(.94)}
+.tint-dark{filter:grayscale(.9) brightness(.5) contrast(1.12) sepia(.25)}
+.c-full{object-fit:cover;object-position:50% 26%}
+.c-mid{object-fit:cover;object-position:50% 46%}
+.c-strap{object-fit:cover;object-position:50% 16%;transform:scale(1.9);transform-origin:50% 16%}
+.c-band{object-fit:cover;object-position:50% 82%;transform:scale(2.1);transform-origin:50% 82%}
+.c-side{object-fit:cover;object-position:32% 42%;transform:scale(1.65);transform-origin:32% 42%}
+.c-detail{object-fit:cover;object-position:46% 38%;transform:scale(3.1);transform-origin:46% 38%}
+.c-ana{object-fit:cover;object-position:50% 28%;width:100%;height:100%}
+.arch{border-radius:50vmax 50vmax 12px 12px}
+
+/* ============ CURSOR ============ */
+#cursor{position:fixed;top:0;left:0;z-index:300;pointer-events:none}
+.c-ring{width:10px;height:10px;border-radius:50%;background:#fff;mix-blend-mode:difference;
+  border:1px solid transparent;transform:translate(-50%,-50%);display:grid;place-items:center;
+  transition:width .28s var(--ease),height .28s var(--ease),background .28s,border-color .28s}
+#cursor.grow .c-ring{width:44px;height:44px;background:transparent;border-color:#fff}
+#cursor.label .c-ring{width:78px;height:78px;background:var(--ink);mix-blend-mode:normal}
+#cursor-label{font-size:.58rem;font-weight:600;font-stretch:120%;letter-spacing:.18em;
+  color:var(--bg);opacity:0;transition:opacity .25s;white-space:nowrap}
+#cursor.label #cursor-label{opacity:1}
+#cursor.label .c-ring{border-color:var(--ink)}
+
+/* ============ LOADER ============ */
+#loader{position:fixed;inset:0;z-index:400;background:var(--bg);
+  display:flex;flex-direction:column;justify-content:space-between;padding:5vh 4vw}
+.ld-top{display:flex;justify-content:space-between;align-items:baseline;
+  font-size:.66rem;font-weight:600;font-stretch:120%;letter-spacing:.24em;color:var(--ink2)}
+#ld-num{font-family:var(--f-serif);font-weight:300;font-size:clamp(5rem,14vw,11rem);
+  line-height:.9;align-self:flex-end}
+#ld-bar{height:1px;background:var(--line);margin-top:2.5vh;position:relative;overflow:hidden}
+#ld-bar-fill{position:absolute;inset:0;background:var(--ink);transform:scaleX(0);transform-origin:left}
+
+/* ============ NAV ============ */
+#nav{position:fixed;top:0;left:0;right:0;z-index:90;display:flex;align-items:center;
+  justify-content:space-between;padding:24px 4vw;transition:padding .35s,background .35s,border-color .35s;
+  pointer-events:none;border-bottom:1px solid transparent}
+#nav>*{pointer-events:auto}
+#nav .brand{font-family:var(--f-serif);font-weight:500;font-size:1.3rem;letter-spacing:.02em;
+  color:var(--nav-c,var(--ink))}
+.nav-links{display:flex;gap:2.4rem}
+.nav-links a{font-size:.7rem;font-weight:600;font-stretch:120%;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--nav-c,var(--ink));position:relative;padding:.3em 0}
+.nav-links a::after{content:'';position:absolute;left:0;bottom:0;width:100%;height:1px;
+  background:currentColor;transform:scaleX(0);transform-origin:right;transition:transform .4s var(--ease)}
+.nav-links a:hover::after{transform:scaleX(1);transform-origin:left}
+.nav-right{display:flex;align-items:center;gap:1.4rem}
+.nav-bag{position:relative;color:var(--nav-c,var(--ink));display:grid;place-items:center;padding:.4rem}
+.nav-bag .lucide{width:20px;height:20px}
+.bag-badge{position:absolute;top:-2px;right:-6px;min-width:16px;height:16px;border-radius:8px;
+  background:var(--rose);color:var(--bg);font-size:.6rem;font-weight:700;display:grid;
+  place-items:center;padding:0 4px;opacity:0;transform:scale(.5);transition:.3s}
+.nav-bag.has .bag-badge{opacity:1;transform:scale(1)}
+.burger{width:40px;height:40px;display:flex;flex-direction:column;justify-content:center;
+  align-items:center;gap:5px}
+.burger span{display:block;width:22px;height:1.5px;background:var(--nav-c,var(--ink));transition:.4s var(--ease)}
+.burger.active span:first-child{transform:translateY(3.2px) rotate(45deg)}
+.burger.active span:last-child{transform:translateY(-3.2px) rotate(-45deg)}
+#nav.scrolled{background:rgba(244,238,228,.82);backdrop-filter:blur(12px);padding:14px 4vw;
+  border-color:rgba(216,202,186,.6)}
+#nav.on-dark{--nav-c:var(--ivory)}
+#nav.on-dark.scrolled{background:rgba(30,22,16,.78);border-color:rgba(59,47,35,.7)}
+#nav.menu-open{background:transparent;backdrop-filter:none;border-color:transparent}
+
+/* ============ FULLSCREEN MENU ============ */
+#menu{position:fixed;inset:0;z-index:85;background:var(--dark);color:var(--ivory);
+  transform:translateY(-102%);visibility:hidden;transition:transform .75s var(--ease),visibility .75s;
+  display:flex;flex-direction:column;justify-content:space-between;padding:14vh 6vw 5vh}
+#menu.open{transform:translateY(0);visibility:visible}
+.m-link{display:flex;align-items:baseline;gap:1.4rem;padding:.3em 0;width:max-content;
+  border-bottom:1px solid rgba(59,47,35,.6)}
+.m-num{font-family:var(--f-sans);font-size:.7rem;font-weight:600;letter-spacing:.2em;color:var(--rose2)}
+.m-word{font-family:var(--f-serif);font-weight:380;font-size:clamp(2rem,5.5vw,4.2rem);
+  line-height:1.15;transition:color .3s,transform .4s var(--ease)}
+.m-link:hover .m-word{color:var(--rose2);transform:translateX(.4em)}
+.m-foot{font-size:.66rem;font-weight:600;font-stretch:120%;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--inkL)}
+.m-foot a:hover{color:var(--rose2)}
+
+/* ============ HERO / 3D SILK ============ */
+#hero{position:relative;height:100vh;height:100svh;overflow:hidden}
+#silk{position:absolute;inset:0}
+#silk canvas{display:block;width:100%;height:100%;cursor:grab;touch-action:pan-y}
+#silk canvas:active{cursor:grabbing}
+.hero-fb{display:none;position:absolute;right:6vw;top:50%;transform:translateY(-50%);
+  width:min(30vw,340px);aspect-ratio:3/4;overflow:hidden}
+.no-webgl .hero-fb{display:block}
+.hero-fb img{width:100%;height:100%;object-fit:cover;object-position:50% 26%}
+.hero-inner{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;
+  align-items:center;gap:2.2vh;pointer-events:none;z-index:2;padding:0 6vw;text-align:center}
+.hero-kick{display:flex;align-items:center;gap:1.1rem;font-size:.66rem;font-weight:600;
+  font-stretch:120%;letter-spacing:.26em;color:var(--ink2)}
+.hero-kick i{display:block;width:56px;height:1px;background:var(--line)}
+.hm-word{display:flex;font-family:var(--f-serif);font-weight:410;
+  font-size:clamp(4.4rem,16.5vw,17rem);line-height:1.04;letter-spacing:-.015em;color:var(--ink)}
+.hm-ch{display:inline-block;overflow:hidden;padding-top:.06em}
+.hm-letter{display:inline-block;transform-origin:50% 100%}
+.hero-tag{display:flex;align-items:center;gap:1.3rem;font-family:var(--f-serif);
+  font-style:italic;font-weight:340;font-size:clamp(1.05rem,2vw,1.6rem);color:var(--ink2)}
+.hero-tag em{color:var(--rose)}
+.ht-rule{display:block;width:clamp(24px,4vw,52px);height:1px;background:var(--line)}
+.hero-vert{position:absolute;right:26px;top:50%;transform:translateY(-50%);
+  writing-mode:vertical-rl;font-size:.62rem;font-weight:600;font-stretch:120%;
+  letter-spacing:.34em;color:var(--ink2);z-index:2;pointer-events:none}
+.hero-foot{position:absolute;left:4vw;right:4vw;bottom:26px;display:flex;
+  justify-content:space-between;align-items:center;z-index:2;pointer-events:none;
+  font-size:.62rem;font-weight:600;font-stretch:120%;letter-spacing:.24em;color:var(--ink2)}
+.hf-drag{display:flex;align-items:center;gap:.7rem}
+.hf-drag .lucide{width:16px;height:16px}
+.hf-scroll{display:flex;align-items:center}
+.hf-line{display:inline-block;width:56px;height:1px;background:var(--line);position:relative;
+  margin-left:1rem;overflow:hidden}
+.hf-line::after{content:'';position:absolute;inset:0;background:var(--ink);
+  transform-origin:left;animation:hfline 2.4s ease-in-out infinite}
+@keyframes hfline{0%{transform:scaleX(0)}50%{transform:scaleX(1)}100%{transform:scaleX(0)}}
+
+/* ============ SECTION SHELL ============ */
+section{position:relative}
+
+/* ============ 01 MANIFESTO ============ */
+#manifesto{padding:20vh 6vw 16vh;overflow:hidden}
+.man-grid{display:grid;grid-template-columns:1fr minmax(260px,32vw);gap:7vw;
+  align-items:start;position:relative;z-index:2}
+.creed{font-family:var(--f-serif);font-weight:400;
+  font-size:clamp(1.55rem,3.1vw,2.9rem);line-height:1.3;max-width:24ch;margin-top:2vh}
+.creed .w{color:#CBBBAD}
+.creed-sign{margin-top:5vh;font-size:.66rem;font-weight:600;font-stretch:120%;
+  letter-spacing:.24em;color:var(--ink2)}
+.man-img{max-width:100%}
+.man-frame{aspect-ratio:3/4.1;overflow:hidden}
+.man-frame img{width:100%;height:100%}
+.man-img figcaption{margin-top:1rem;font-size:.62rem;font-weight:600;
+  font-stretch:120%;letter-spacing:.22em;color:var(--ink2)}
+.ghost-word{position:absolute;bottom:-6vw;right:-2vw;font-family:var(--f-serif);
+  font-style:italic;font-weight:340;font-size:24vw;line-height:1;color:transparent;
+  -webkit-text-stroke:1px var(--line);z-index:1;user-select:none}
+
+/* ============ 02 COLLECTION (horizontal rail) ============ */
+#collection{height:100vh;height:100svh;overflow:hidden}
+#col-track{display:flex;align-items:center;height:100%;width:max-content;
+  gap:7vw;padding:0 7vw}
+.col-slide{flex:none}
+.col-intro{width:max(320px,34vw)}
+.col-sub{margin-top:3vh;max-width:34ch;color:var(--ink2);font-size:.95rem}
+.col-hint{display:flex;align-items:center;gap:.8rem;margin-top:5vh;
+  font-size:.62rem;font-weight:600;font-stretch:120%;letter-spacing:.24em;color:var(--ink2)}
+.col-hint .lucide{width:16px;height:16px;animation:nudge 1.8s ease-in-out infinite}
+@keyframes nudge{0%,100%{transform:translateX(0)}50%{transform:translateX(8px)}}
+.product{width:var(--w,52vw);display:flex;gap:2.6vw;align-items:center;position:relative}
+.product.p-b{flex-direction:row-reverse}
+.product.p-c{align-items:flex-start;padding-top:9vh}
+.product.p-d{align-items:flex-end;padding-bottom:9vh}
+.p-index{position:absolute;top:-7vw;left:-2vw;font-family:var(--f-serif);font-weight:340;
+  font-size:9vw;line-height:1;color:transparent;-webkit-text-stroke:1px var(--line);z-index:0;user-select:none}
+.p-b .p-index{top:auto;bottom:-5vw;left:-2vw}
+.p-c .p-index,.p-d .p-index{left:auto;right:-1vw}
+.p-media{width:56%;position:relative}
+.p-b .p-media{width:60%}
+.p-c .p-media{width:52%}
+.p-d .p-media{width:58%}
+.p-frame{aspect-ratio:3/4;overflow:hidden;position:relative;background:var(--blush);
+  transition:transform .8s var(--ease)}
+.p-b .p-frame{aspect-ratio:3/3.9}
+.p-c .p-frame{aspect-ratio:4/5}
+.p-d .p-frame{aspect-ratio:3/4.3}
+.p-media:hover .p-frame{transform:scale(1.03)}
+.p-frame img{width:100%;height:100%}
+.p-swatches{position:absolute;left:-12px;bottom:22px;display:flex;gap:8px;z-index:3}
+.sw{width:18px;height:18px;border-radius:50%;background:var(--swc);
+  border:1px solid rgba(36,27,21,.28);transition:transform .3s}
+.sw:hover{transform:scale(1.2)}
+.sw.active{outline:1px solid var(--ink);outline-offset:3px}
+.p-info{max-width:330px;position:relative;z-index:2}
+.p-name{font-family:var(--f-serif);font-weight:480;font-size:1.9rem;letter-spacing:.01em}
+.p-name em{display:block;font-size:1.05rem;font-weight:340;color:var(--ink2);margin-top:.15em}
+.p-desc{margin-top:1.1rem;font-size:.9rem;color:var(--ink2);max-width:32ch}
+.p-row{display:flex;align-items:center;gap:1.6rem;margin-top:1.8rem}
+.p-price{font-family:var(--f-serif);font-weight:400;font-size:1.5rem}
+.col-hud{position:absolute;left:5vw;right:5vw;bottom:4vh;display:flex;align-items:center;
+  justify-content:space-between;font-size:.62rem;font-weight:600;font-stretch:120%;
+  letter-spacing:.24em;color:var(--ink2)}
+.col-bar{width:180px;height:1px;background:var(--line);position:relative}
+#col-fill{position:absolute;inset:0;background:var(--ink);transform:scaleX(0);transform-origin:left}
+
+/* ============ 03 ANATOMY (pinned dissection) ============ */
+#anatomy{height:100vh;height:100svh;overflow:hidden}
+.ana-grid{display:grid;grid-template-columns:38% 1fr;gap:5vw;align-items:center;
+  height:100%;padding:0 5vw}
+.ana-h{font-size:clamp(2rem,3.4vw,3.4rem);margin-bottom:3.5vh}
+.ana-list{list-style:none}
+.a-item{display:grid;grid-template-columns:3.2rem 1fr;padding:1.15rem 0;
+  border-top:1px solid var(--line);transition:.4s}
+.a-num{font-family:var(--f-serif);font-style:italic;font-weight:340;font-size:1rem;
+  color:var(--inkL);transition:color .4s}
+.a-name{font-size:.78rem;font-weight:700;font-stretch:120%;letter-spacing:.16em;
+  text-transform:uppercase;transition:color .4s}
+.a-det{font-size:.85rem;color:var(--ink2);max-height:0;opacity:0;overflow:hidden;
+  transition:max-height .5s var(--ease),opacity .5s,margin .5s}
+.a-item.active .a-det{max-height:4.5em;opacity:1;margin-top:.45em}
+.a-item.active .a-num{color:var(--rose)}
+.a-item.active .a-name{color:var(--rose)}
+.ana-progress{height:1px;background:var(--line);margin-top:3vh;position:relative}
+#ana-fill{position:absolute;inset:0;background:var(--ink);transform:scaleX(0);transform-origin:left}
+.ana-hint{margin-top:1rem;font-size:.6rem;font-weight:600;font-stretch:120%;
+  letter-spacing:.26em;color:var(--ink2)}
+.ana-frame{position:relative;height:64vh;aspect-ratio:5/6;max-width:100%;margin:0 auto;
+  overflow:hidden;background:var(--blush)}
+.anno{position:absolute;left:var(--ax);top:var(--ay);opacity:0;transition:opacity .5s;pointer-events:none}
+.anno.on{opacity:1}
+.a-dot{position:absolute;left:-4px;top:0;width:8px;height:8px;border-radius:50%;
+  background:var(--rose);transform:translateY(-50%)}
+.anno.on .a-dot::after{content:'';position:absolute;inset:-7px;border:1px solid var(--rose);
+  border-radius:50%;animation:pulse 1.6s ease-out infinite}
+@keyframes pulse{0%{transform:scale(.4);opacity:1}100%{transform:scale(1.4);opacity:0}}
+.a-line{position:absolute;right:6px;top:0;width:86px;height:1px;background:var(--ink);
+  transform:translateY(-50%) scaleX(0);transform-origin:right;transition:transform .5s .15s var(--ease)}
+.anno.on .a-line{transform:translateY(-50%) scaleX(1)}
+.a-lab{position:absolute;left:14px;top:0;transform:translateY(-50%);white-space:nowrap;
+  font-size:.58rem;font-weight:700;font-stretch:120%;letter-spacing:.2em;color:var(--ink);
+  background:rgba(244,238,228,.82);padding:.35em .7em}
+.ana-cap{display:flex;justify-content:space-between;margin-top:1.1rem;font-size:.62rem;
+  font-weight:600;font-stretch:120%;letter-spacing:.22em;color:var(--ink2)}
+
+/* ============ 04 CRAFT (dark atelier) ============ */
+#craft{background:var(--dark);color:var(--ivory);padding:0 0 14vh;overflow:hidden}
+#lace{display:block;width:100%;height:110px}
+#lace path{stroke:var(--rose2);stroke-width:1.2;fill:none;vector-effect:non-scaling-stroke}
+#lace circle{fill:var(--rose2)}
+.craft-top{display:grid;grid-template-columns:1.35fr .65fr;gap:6vw;
+  padding:9vh 6vw 7vh;align-items:end}
+.craft-note{font-size:.95rem;color:#B9A794;max-width:36ch}
+.craft-vert{position:absolute;right:22px;bottom:36vh;writing-mode:vertical-rl;
+  font-size:.6rem;font-weight:600;font-stretch:120%;letter-spacing:.34em;color:var(--inkL)}
+.stats{max-width:940px;margin-left:6vw;padding:0 6vw 7vh 0}
+.stat{display:flex;align-items:baseline;gap:2.2rem;padding:1.7rem 0;border-bottom:1px solid var(--lineD)}
+.stat-num{font-family:var(--f-serif);font-weight:300;font-size:clamp(2.6rem,5.4vw,4.6rem);
+  line-height:1;min-width:3ch;color:var(--ivory)}
+.stat-lab{font-size:.68rem;font-weight:600;font-stretch:120%;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--inkL)}
+.craft-band{position:relative;height:36vh;overflow:hidden}
+.craft-band img{width:100%;height:100%}
+.band-cap{position:absolute;left:4vw;bottom:1.4rem;font-size:.62rem;font-weight:600;
+  font-stretch:120%;letter-spacing:.22em;color:var(--ivory)}
+
+/* ============ 05 FIT ROOM ============ */
+#fit{padding:18vh 6vw;min-height:100vh;min-height:100svh}
+.fit-grid{display:grid;grid-template-columns:1fr 40%;gap:7vw;align-items:stretch}
+.fit-lead{margin:3vh 0 6vh;max-width:42ch;color:var(--ink2)}
+.sel-group{margin-bottom:3.4vh}
+.sel-lab{font-size:.62rem;font-weight:700;font-stretch:120%;letter-spacing:.24em;
+  color:var(--ink2);margin-bottom:.8rem}
+.sel-row{display:flex;flex-wrap:wrap;gap:8px}
+.sel{min-width:52px;height:44px;border:1px solid var(--line);background:transparent;
+  font-size:.92rem;font-weight:500;transition:.3s}
+.sel:hover{background:var(--blush)}
+.sel.active{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.fx{border-top:1px solid var(--line);padding-top:3.5vh;margin-top:2vh}
+.fx-cap{font-size:.62rem;font-weight:700;font-stretch:120%;letter-spacing:.24em;color:var(--ink2)}
+.fx-size{font-family:var(--f-serif);font-weight:390;font-size:clamp(3rem,5.5vw,4.6rem);line-height:1.1}
+.fx-rec{margin-top:1.2rem;max-width:52ch;color:var(--ink2);font-size:.95rem}
+.fx-rec em{font-style:italic;font-family:var(--f-serif);color:var(--rose)}
+.fx-spec{margin:3.2vh 0}
+.fx-track{position:relative;height:1px;background:var(--line)}
+.fx-mark{position:absolute;left:50%;top:-5px;width:11px;height:11px;background:var(--rose);
+  transform:translateX(-50%) rotate(45deg);transition:left .8s cubic-bezier(.3,1.4,.4,1)}
+.fx-ticks{display:flex;justify-content:space-between;margin-top:1rem;
+  font-size:.56rem;font-weight:600;font-stretch:120%;letter-spacing:.18em;color:var(--ink2)}
+.fx-actions{display:flex;flex-wrap:wrap;gap:1rem}
+.fit-media{position:relative}
+.fit-img{height:100%;min-height:66vh;overflow:hidden;background:var(--blush);
+  transition:transform .18s ease-out;will-change:transform}
+.fit-img img{width:100%;height:100%}
+.fit-cap{position:absolute;right:0;bottom:-2rem;font-size:.6rem;font-weight:600;
+  font-stretch:120%;letter-spacing:.22em;color:var(--ink2)}
+
+/* ============ 06 VOICES (stacking cards) ============ */
+#voices{height:100vh;height:100svh;overflow:hidden}
+.v-head{position:absolute;top:7vh;left:6vw;right:6vw;display:flex;justify-content:space-between;
+  align-items:flex-end;z-index:6}
+.v-head .kicker{margin-bottom:0;min-width:44%}
+.v-note{font-family:var(--f-serif);font-style:italic;font-size:1.05rem;color:var(--ink2)}
+.v-stage{position:absolute;inset:0}
+.v-card{position:absolute;left:50%;top:56%;width:min(860px,88vw);display:flex;gap:2.2rem;
+  align-items:center;padding:2.3rem;background:#EFE4D3;border:1px solid var(--line);
+  box-shadow:0 18px 50px rgba(36,27,21,.1);transform:translate(-50%,-50%) rotate(var(--rot))}
+.v-thumb{width:150px;aspect-ratio:3/4;overflow:hidden;flex:none;background:var(--blush)}
+.v-thumb img{width:100%;height:100%}
+.v-body blockquote{font-family:var(--f-serif);font-weight:400;
+  font-size:clamp(1.15rem,2vw,1.55rem);line-height:1.35}
+.v-body em{font-style:italic;color:var(--rose)}
+.v-meta{margin-top:1.2rem;font-size:.62rem;font-weight:700;font-stretch:120%;
+  letter-spacing:.22em;color:var(--rose)}
+
+/* ============ 07 JOURNAL (asymmetric editorial) ============ */
+#journal{padding:20vh 6vw 14vh}
+.j-grid{display:grid;grid-template-columns:repeat(12,1fr);row-gap:0}
+.j-img .j-frame{overflow:hidden;background:var(--blush)}
+.j-img img{width:100%;height:100%;transition:transform .8s var(--ease)}
+.j-img:hover img{transform:scale(1.04)}
+.j-img figcaption{margin-top:.9rem;font-size:.6rem;font-weight:600;font-stretch:120%;
+  letter-spacing:.22em;color:var(--ink2)}
+.j-a{grid-column:7/11}
+.j-a .j-frame{aspect-ratio:3/4}
+.j-quote{grid-column:3/9;margin-top:-15vw;z-index:2;background:rgba(244,238,228,.74);
+  backdrop-filter:blur(6px);padding:2.4rem 2.6rem}
+.j-quote p{font-family:var(--f-serif);font-weight:390;
+  font-size:clamp(1.5rem,2.8vw,2.4rem);line-height:1.3}
+.j-quote em{font-style:italic;color:var(--rose)}
+.j-b{grid-column:2/5;margin-top:-9vw;z-index:3}
+.j-b .j-frame{aspect-ratio:4/5}
+.j-link{grid-column:3/6;margin-top:7vh;display:flex;align-items:center;gap:.8rem;
+  font-size:.68rem;font-weight:700;font-stretch:120%;letter-spacing:.22em;
+  border-bottom:1px solid var(--ink);padding-bottom:.5em;width:max-content;transition:.3s}
+.j-link .lucide{width:15px;height:15px;transition:transform .3s}
+.j-link:hover{color:var(--rose);border-color:var(--rose)}
+.j-link:hover .lucide{transform:translate(4px,-4px)}
+
+/* ============ 08 FINALE ============ */
+#finale{min-height:100vh;min-height:100svh;display:flex;flex-direction:column;
+  justify-content:center;align-items:center;text-align:center;padding:18vh 6vw;gap:5vh}
+.fin-h{font-size:clamp(3.2rem,9vw,9rem)}
+.fin-actions{display:flex;flex-wrap:wrap;gap:1.4rem;justify-content:center}
+.nl{margin-top:6vh}
+.nl-cap{font-size:.62rem;font-weight:700;font-stretch:120%;letter-spacing:.24em;
+  color:var(--ink2);margin-bottom:1.2rem}
+#nl-form{display:flex;align-items:flex-end;gap:1rem}
+#nl-input{background:transparent;border:none;border-bottom:1px solid var(--ink);
+  padding:.7em .2em;width:min(320px,72vw);font-family:var(--f-serif);font-size:1.1rem;
+  color:var(--ink);border-radius:0}
+#nl-input::placeholder{color:var(--inkL);font-style:italic}
+#nl-input.bad{border-color:var(--rose)}
+#nl-input:focus{outline:none;border-color:var(--rose)}
+.nl-btn{width:52px;height:52px;border-radius:50%;background:var(--ink);color:var(--bg);
+  display:grid;place-items:center;flex:none;transition:background .3s}
+.nl-btn:hover{background:var(--rose)}
+.nl-btn .lucide{width:18px;height:18px}
+.nl-error{margin-top:.8rem;font-size:.8rem;color:var(--rose);min-height:1.2em}
+.nl-done{display:flex;align-items:center;gap:.8rem;font-family:var(--f-serif);
+  font-size:1.15rem;color:var(--rose)}
+.nl-done .lucide{width:18px;height:18px}
+
+/* ============ BUTTONS ============ */
+.btn{display:inline-flex;align-items:center;gap:.7rem;padding:1.05em 1.9em;border-radius:999px;
+  border:1px solid var(--ink);font-size:.68rem;font-weight:700;font-stretch:120%;
+  letter-spacing:.18em;text-transform:uppercase;position:relative;overflow:hidden;
+  background:transparent;color:var(--ink);transition:color .35s}
+.btn>*{position:relative;z-index:1}
+.btn::before{content:'';position:absolute;inset:0;background:var(--ink);
+  transform:scaleY(0);transform-origin:bottom;transition:transform .45s var(--ease)}
+.btn:hover{color:var(--bg)}
+.btn:hover::before{transform:scaleY(1)}
+.btn .lucide{width:14px;height:14px}
+.btn-primary{background:var(--ink);color:var(--bg)}
+.btn-primary::before{background:var(--rose)}
+.btn-wide{width:100%;justify-content:center}
+.btn-add{padding:.85em 1.35em;font-size:.62rem}
+
+/* ============ FOOTER ============ */
+footer{border-top:1px solid var(--line)}
+.marquee{overflow:hidden;border-bottom:1px solid var(--line);padding:.95rem 0}
+.mq-track{display:flex;width:max-content;animation:mq 30s linear infinite}
+.mq-set{display:flex;gap:2.8rem;padding-right:2.8rem;align-items:center;
+  font-size:.62rem;font-weight:700;font-stretch:120%;letter-spacing:.24em;color:var(--ink2)}
+.mq-set i{width:5px;height:5px;background:var(--rose);transform:rotate(45deg);flex:none}
+@keyframes mq{to{transform:translateX(-50%)}}
+.foot-main{padding:9vh 6vw 3vh;overflow:hidden}
+.foot-top{display:flex;justify-content:space-between;align-items:flex-start;gap:3rem;flex-wrap:wrap}
+.foot-blurb{font-family:var(--f-serif);font-style:italic;font-size:1.25rem;
+  max-width:22ch;color:var(--ink2)}
+.foot-links{display:flex;flex-wrap:wrap;gap:2rem}
+.foot-links a{font-size:.66rem;font-weight:700;font-stretch:120%;letter-spacing:.2em;
+  text-transform:uppercase;padding:.3em 0;position:relative}
+.foot-links a::after{content:'';position:absolute;left:0;bottom:0;width:100%;height:1px;
+  background:var(--rose);transform:scaleX(0);transform-origin:right;transition:transform .35s var(--ease)}
+.foot-links a:hover::after{transform:scaleX(1);transform-origin:left}
+.foot-mark-wrap{overflow:hidden;height:15vw;display:flex;justify-content:center;margin-top:6vh}
+.foot-mark{font-family:var(--f-serif);font-weight:410;font-size:21vw;line-height:.82;
+  letter-spacing:-.01em;color:var(--ink)}
+.foot-bottom{display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;
+  margin-top:4vh;padding-top:1.6rem;border-top:1px solid var(--line);
+  font-size:.62rem;font-weight:600;font-stretch:120%;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--ink2)}
+
+/* ============ CHAPTER INDICATOR ============ */
+#chapter{position:fixed;bottom:20px;right:24px;z-index:40;font-size:.6rem;font-weight:600;
+  font-stretch:120%;letter-spacing:.24em;color:var(--ink2);text-transform:uppercase;pointer-events:none}
+#chapter.on-dark{color:var(--inkL)}
+
+/* ============ BAG DRAWER ============ */
+#bag-backdrop{position:fixed;inset:0;z-index:94;background:rgba(30,22,16,.45);
+  opacity:0;pointer-events:none;transition:opacity .5s}
+#bag-backdrop.open{opacity:1;pointer-events:auto}
+#bag{position:fixed;top:0;right:0;height:100vh;height:100svh;width:min(430px,94vw);
+  background:var(--bg);z-index:95;border-left:1px solid var(--line);display:flex;
+  flex-direction:column;transform:translateX(103%);transition:transform .6s var(--ease)}
+#bag.open{transform:translateX(0)}
+.bag-head{display:flex;justify-content:space-between;align-items:center;
+  padding:1.6rem 1.8rem;border-bottom:1px solid var(--line)}
+.bag-head p{font-family:var(--f-serif);font-weight:480;font-size:1.15rem}
+#bag-close{padding:.4rem}
+#bag-close .lucide{width:18px;height:18px}
+#bag-items{flex:1;overflow-y:auto;padding:1.2rem 1.8rem}
+.bag-item{display:flex;gap:1.1rem;align-items:center;padding:1.1rem 0;
+  border-bottom:1px solid var(--line)}
+.bi-thumb{width:72px;aspect-ratio:3/4;overflow:hidden;flex:none;background:var(--blush)}
+.bi-thumb img{width:100%;height:100%}
+.bi-info{flex:1}
+.bi-name{font-family:var(--f-serif);font-weight:480;font-size:1rem}
+.bi-meta{font-size:.7rem;color:var(--ink2);margin-top:.2em}
+.bi-qty{display:flex;align-items:center;gap:.7rem;margin-top:.7rem}
+.q-btn{width:26px;height:26px;border:1px solid var(--line);display:grid;place-items:center}
+.q-btn .lucide{width:12px;height:12px}
+.q-btn:hover{background:var(--blush)}
+.bi-qty span{font-weight:600;min-width:1.2em;text-align:center}
+.bi-price{font-family:var(--f-serif);font-size:1.05rem}
+.bi-remove{color:var(--ink2);padding:.3rem;align-self:flex-start}
+.bi-remove .lucide{width:14px;height:14px}
+#bag-empty{flex:1;display:none;flex-direction:column;align-items:center;justify-content:center;
+  gap:1.4rem;text-align:center;padding:2rem;color:var(--ink2)}
+#bag-empty .lucide{width:30px;height:30px;stroke-width:1.2}
+#bag-empty p{font-family:var(--f-serif);font-size:1.15rem;line-height:1.5}
+#bag-foot{padding:1.5rem 1.8rem;border-top:1px solid var(--line)}
+.bag-sub{display:flex;justify-content:space-between;font-size:.72rem;font-weight:700;
+  font-stretch:120%;letter-spacing:.18em;margin-bottom:.6rem}
+#bag-subtotal{font-family:var(--f-serif);font-size:1.3rem;font-weight:480}
+.bag-note{font-size:.72rem;color:var(--ink2);margin-bottom:1.2rem}
+
+/* ============ MODAL ============ */
+#modal{position:fixed;inset:0;z-index:130;display:grid;place-items:center;
+  background:rgba(30,22,16,.5);opacity:0;pointer-events:none;transition:opacity .45s;padding:5vh 4vw}
+#modal.open{opacity:1;pointer-events:auto}
+.modal-card{background:var(--bg);border:1px solid var(--line);width:min(640px,92vw);
+  max-height:84vh;overflow-y:auto;padding:clamp(2rem,5vw,3.2rem);position:relative;
+  transform:translateY(26px);transition:transform .5s var(--ease)}
+#modal.open .modal-card{transform:translateY(0)}
+#modal-close{position:absolute;top:1.1rem;right:1.1rem;padding:.5rem;color:var(--ink2)}
+#modal-close .lucide{width:18px;height:18px}
+#modal-close:hover{color:var(--rose)}
+.mo-title{font-family:var(--f-serif);font-weight:390;font-size:2.1rem;margin-bottom:1.6rem}
+.mo-steps{list-style:none}
+.mo-steps li{display:flex;gap:1.2rem;padding:1.3rem 0;border-top:1px solid var(--line)}
+.mo-steps .lucide{width:20px;height:20px;stroke-width:1.4;flex:none;margin-top:.25rem;color:var(--rose)}
+.mo-steps h4{font-size:.72rem;font-weight:700;font-stretch:120%;letter-spacing:.18em;
+  text-transform:uppercase;margin-bottom:.4rem}
+.mo-steps p{font-size:.9rem;color:var(--ink2)}
+.mo-foot{margin-top:1.6rem;padding-top:1.4rem;border-top:1px solid var(--line);
+  font-family:var(--f-serif);font-style:italic;color:var(--rose)}
+.mo-p{font-size:.98rem;color:var(--ink2);margin-bottom:1.1rem;max-width:56ch}
+.mo-p em{font-family:var(--f-serif);font-style:italic;color:var(--rose)}
+.mo-sign{margin-top:1.6rem;font-size:.62rem;font-weight:700;font-stretch:120%;
+  letter-spacing:.22em;color:var(--ink2)}
+
+/* ============ TOASTS ============ */
+#toasts{position:fixed;bottom:26px;left:50%;transform:translateX(-50%);z-index:260;
+  display:flex;flex-direction:column;gap:.6rem;align-items:center;pointer-events:none}
+.toast{display:flex;align-items:center;gap:.8rem;background:var(--ink);color:var(--bg);
+  padding:.9em 1.5em;border-radius:999px;font-size:.78rem;letter-spacing:.04em;
+  box-shadow:0 12px 34px rgba(36,27,21,.25);max-width:88vw}
+.toast .lucide{width:15px;height:15px;color:var(--rose2)}
+
+/* ============ LUCIDE DEFAULT ============ */
+.lucide{width:16px;height:16px;stroke-width:1.6}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width:1000px){
+  .nav-links,#chapter,.hero-vert{display:none}
+  .man-grid{grid-template-columns:1fr}
+  .man-img{width:min(420px,80%);margin-left:auto;margin-top:6vh}
+  .product{width:86vw;flex-direction:column;align-items:flex-start;gap:1.3rem}
+  .product.p-b{flex-direction:column}
+  .product.p-c,.product.p-d{padding:0}
+  .p-media,.p-b .p-media,.p-c .p-media,.p-d .p-media{width:78%}
+  .p-index{top:-9vw;left:0;right:auto;bottom:auto;font-size:17vw}
+  .col-intro{width:78vw}
+  .ana-grid{grid-template-columns:1fr;grid-template-rows:auto 1fr auto;
+    padding:9vh 6vw 8vh;gap:2.5vh}
+  .ana-h{margin:0 0 1.5vh;font-size:1.7rem}
+  .ana-list{display:flex;gap:.9rem}
+  .a-item{flex:1;border-top:none;border-left:2px solid var(--line);
+    padding:.5rem .7rem;grid-template-columns:auto 1fr;gap:.5rem}
+  .a-num{display:none}
+  .a-det{display:none}
+  .a-item.active{border-color:var(--rose)}
+  .ana-progress,.ana-hint{display:none}
+  .ana-frame{height:44vh;width:min(74vw,340px)}
+  .a-lab{display:none}
+  .a-line{width:38px}
+  .craft-top{grid-template-columns:1fr;gap:3vh}
+  .craft-vert{display:none}
+  .fit-grid{grid-template-columns:1fr}
+  .fit-media{order:-1}
+  .fit-img{min-height:44vh}
+  .fit-cap{bottom:-1.8rem}
+  .v-card{gap:1.3rem;padding:1.6rem}
+  .v-thumb{width:96px}
+  .v-note{display:none}
+  .j-grid{display:block}
+  .j-a{width:82%;margin-left:auto}
+  .j-quote{margin-top:-12vw}
+  .j-b{width:68%;margin-top:2vh}
+  .j-link{margin-top:6vh}
+}
+@media (max-width:640px){
+  .stat-num{font-size:2.2rem}
+  .hero-foot{font-size:.55rem}
+  .hf-drag{display:none}
+  .col-hud{bottom:2.6vh}
+  .mq-set{gap:1.6rem;padding-right:1.6rem}
+}
+
+/* ============ REDUCED MOTION / STATIC FALLBACK ============ */
+.reduced #loader{display:none}
+.reduced .grain{animation:none}
+.reduced #chapter{display:none}
+.reduced #nav{background:rgba(244,238,228,.85);backdrop-filter:blur(10px)}
+.reduced #collection{height:auto}
+.reduced #col-track{flex-direction:column;width:auto;padding:12vh 6vw;gap:10vh;align-items:stretch}
+.reduced .col-intro{width:auto}
+.reduced .product{width:100%}
+.reduced .p-frame,.reduced .p-info{opacity:1!important;transform:none!important}
+.reduced .col-hud{display:none}
+.reduced #anatomy{height:auto;padding:14vh 6vw}
+.reduced .ana-grid{display:block;height:auto}
+.reduced .ana-frame{height:56vh;margin-top:3vh}
+.reduced .anno{opacity:1}
+.reduced .a-line{transform:translateY(-50%) scaleX(1)}
+.reduced .a-det{max-height:5em;opacity:1;margin-top:.45em}
+.reduced .ana-progress,.reduced .ana-hint{display:none}
+.reduced #voices{height:auto;padding:14vh 6vh}
+.reduced .v-stage{position:static}
+.reduced .v-card{position:relative;left:auto;top:auto;margin:0 auto 2.5rem;transform:rotate(var(--rot))}
+.reduced .foot-mark{transform:translateY(12%)}
+.reduced #fit{min-height:0}
+.reduced .hf-line::after{animation:none;transform:scaleX(1)}
+.reduced .mq-track{animation:none}
+.reduced .col-hint .lucide{animation:none}
+.reduced .anno.on .a-dot::after{animation:none}
+@media (prefers-reduced-motion:reduce){
+  .grain{animation:none}
+  .mq-track{animation:none}
+  .hf-line::after{animation:none;transform:scaleX(1)}
+  .col-hint .lucide{animation:none}
+  .anno.on .a-dot::after{animation:none}
+}
+</style>
+<noscript><style>#loader{display:none}.col-hud{display:none}</style></noscript>
+</head>
+<body>
+
+<a class="skip-link" href="#manifesto">Skip to content</a>
+<div class="grain" aria-hidden="true"></div>
+<div id="cursor" aria-hidden="true"><div class="c-ring"><span id="cursor-label"></span></div></div>
+
+<!-- LOADER -->
+<div id="loader" role="status" aria-label="Loading LUMÉA">
+  <div class="ld-top"><span>LUMÉA — ATELIER Nº 04</span><span>FW ’25</span></div>
+  <div><p id="ld-num">000</p><div id="ld-bar"><span id="ld-bar-fill"></span></div></div>
+</div>
+
+<!-- NAV -->
+<header id="nav">
+  <a class="brand" href="#hero" aria-label="LUMÉA home">LUMÉA</a>
+  <nav class="nav-links" aria-label="Primary">
+    <a href="#collection">Collection</a>
+    <a href="#anatomy">Anatomy</a>
+    <a href="#fit">Fit Room</a>
+    <a href="#voices">Voices</a>
+  </nav>
+  <div class="nav-right">
+    <button id="bag-btn" class="nav-bag" aria-label="Open bag">
+      <i data-lucide="shopping-bag"></i><span id="bag-count" class="bag-badge">0</span>
+    </button>
+    <button id="burger" class="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span></button>
+  </div>
+</header>
+
+<!-- FULLSCREEN MENU -->
+<div id="menu" aria-hidden="true">
+  <nav class="m-inner" aria-label="Main menu">
+    <a class="m-link" href="#collection"><span class="m-num">02</span><span class="m-word">Collection</span></a>
+    <a class="m-link" href="#anatomy"><span class="m-num">03</span><span class="m-word">Anatomy</span></a>
+    <a class="m-link" href="#craft"><span class="m-num">04</span><span class="m-word">The Atelier</span></a>
+    <a class="m-link" href="#fit"><span class="m-num">05</span><span class="m-word">The Fit Room</span></a>
+    <a class="m-link" href="#voices"><span class="m-num">06</span><span class="m-word">Worn By You</span></a>
+  </nav>
+  <p class="m-foot">FW ’25 — THE SKIN SERIES · <a href="mailto:atelier@lumea.example">ATELIER@LUMEA.EXAMPLE</a></p>
+</div>
+
+<p id="chapter" aria-hidden="true"><span>00 — OVERTURE</span></p>
+
+<main id="main">
+
+<!-- ============ HERO / 3D SILK ============ -->
+<section id="hero" aria-label="LUMÉA — silk simulation">
+  <div id="silk" data-cursor="DRAG" aria-hidden="true"></div>
+  <div class="hero-fb" aria-hidden="true"><img src="https://z-cdn-media.chatglm.cn/files/77a311be-4f67-46ca-a254-50b451ad457c.png?auth_key=1888669986-ad4a6606a1048d396241fd726e2f2e4-0-2c1b5bb477633ead98b1d09055e4e0e2" alt=""></div>
+  <div class="hero-inner">
+    <p class="hero-kick hero-fade"><span>ATELIER Nº 04</span><i></i><span>PARIS</span></p>
+    <h1 class="hm-word" aria-label="LUMÉA">
+      <span class="hm-ch"><span class="hm-letter">L</span></span><span class="hm-ch"><span class="hm-letter">U</span></span><span class="hm-ch"><span class="hm-letter">M</span></span><span class="hm-ch"><span class="hm-letter">É</span></span><span class="hm-ch"><span class="hm-letter">A</span></span>
+    </h1>
+    <p class="hero-tag hero-fade"><span class="ht-rule"></span>Intimates that hold you, <em>not in.</em><span class="ht-rule"></span></p>
+  </div>
+  <p class="hero-vert hero-fade">FW ’25 — THE SKIN SERIES</p>
+  <div class="hero-foot">
+    <p class="hero-fade hf-scroll">SCROLL<span class="hf-line"></span></p>
+    <p class="hero-fade hf-drag"><i data-lucide="move-horizontal"></i><span>DRAG TO DISTURB THE SILK</span></p>
+    <p class="hero-fade">01 — SILK</p>
+  </div>
+</section>
+
+<!-- ============ 01 MANIFESTO ============ -->
+<section id="manifesto">
+  <div class="man-grid">
+    <div class="man-copy">
+      <p class="kicker">01 — THE BELIEF</p>
+      <p id="creed" class="creed">A bra shouldn’t be a daily negotiation. LUMÉA builds second-skins — wireless, weightless, sewn to your geometry — until comfort stops being a compromise and starts being a given. You forget you’re wearing it. You remember who you are.</p>
+      <p class="creed-sign rv">THE LUMÉA CREED — LINE 01</p>
+    </div>
+    <figure class="man-img" data-para="0.85">
+      <div class="arch man-frame"><img src="https://z-cdn-media.chatglm.cn/files/77a311be-4f67-46ca-a254-50b451ad457c.png?auth_key=1888669986-ad4da6606a1048d396241fd726e2f2e4-0-2c1b5bb477633ead98b1d09055e4e0e2" class="c-full" alt="The LUMÉA Aerin wireless bra worn in Porcelain — worn, not styled." loading="lazy"></div>
+      <figcaption>AERIN / PORCELAIN — WORN, NOT STYLED</figcaption>
+    </figure>
+  </div>
+  <span class="ghost-word" aria-hidden="true">elle</span>
+</section>
+
+<!-- ============ 02 COLLECTION / HORIZONTAL RAIL ============ -->
+<section id="collection" aria-label="The collection">
+  <div id="col-track">
+    <div class="col-slide col-intro">
+      <p class="kicker">02 — THE COLLECTION</p>
+      <h2 class="display" data-lines>
+        <span class="rl"><span class="rli">Four pieces.</span></span>
+        <span class="rl"><span class="rli">One <em>philosophy.</em></span></span>
+      </h2>
+      <p class="col-sub rv">Every piece on this rail shares a single rule: you should forget it by lunch.</p>
+      <p class="col-hint"><i data-lucide="arrow-right"></i><span>THE RAIL SLIDES — KEEP SCROLLING</span></p>
+    </div>
+
+    <article class="col-slide product" data-id="aerin" style="--w:54vw">
+      <span class="p-index" aria-hidden="true">01</span>
+      <div class="p-media" data-cursor="ADD" role="button" tabindex="0" aria-label="Add Aerin to bag">
+        <div class="p-frame"><img src="https://z-cdn-media.chatglm.cn/files/77a311be-4f67-46ca-a254-50b451ad457c.png?auth_key=1888669986-ad4da6606a1048d396241fd726e2f2e4-0-2c1b5bb477633ead98b1d09055e4e0e2" class="c-full cw-porcelain" draggable="false" alt="Aerin, the wireless sculpt bra, worn in Porcelain." loading="lazy"></div>
+        <div class="p-swatches" aria-label="Choose colorway">
+          <button class="sw active" data-cw="porcelain" style="--swc:#E8DCC9" aria-label="Porcelain"></button>
+          <button class="sw" data-cw="rose" style="--swc:#C08A73" aria-label="Rosewater"></button>
+          <button class="sw" data-cw="noir" style="--swc:#24201B" aria-label="Noir"></button>
+        </div>
+      </div>
+      <div class="p-info">
+        <h3 class="p-name">AERIN <em>— the wireless sculpt</em></h3>
+        <p class="p-desc">Bonded seams, zero wiring. A quiet architecture that lifts by cut, not by cage.</p>
+        <div class="p-row"><span class="p-price">$68</span>
+          <button class="btn btn-add" data-id="aerin"><span>ADD TO BAG</span><i data-lucide="plus"></i></button></div>
+      </div>
+    </article>
+
+    <article class="col-slide product p-b" data-id="noe" style="--w:50vw">
+      <span class="p-index" aria-hidden="true">02</span>
+      <div class="p-media" data-cursor="ADD" role="button" tabindex="0" aria-label="Add Noé to bag">
+        <div class="p-frame arch"><img src="https://z-cdn-media.chatglm.cn/files/77a311be-4f67-46ca-a254-50b451ad457c.png?auth_key=1888669986-ad4da6606a1048d396241fd726e2f2e4-0-2c1b5bb477633ead98b1d09055e4e0e2" class="c-side cw-rose" draggable="false" alt="Noé, the lace balconette, worn in Rosewater." loading="lazy"></div>
+        <div class="p-swatches" aria-label="Choose colorway">
+          <button class="sw active" data-cw="rose" style="--swc:#C08A73" aria-label="Rosewater"></button>
+          <button class="sw" data-cw="porcelain" style="--swc:#E8DCC9" aria-label="Porcelain"></button>
+          <button class="sw" data-cw="noir" style="--swc:#24201B" aria-label="Noir"></button>
+        </div>
+      </div>
+      <div class="p-info">
+        <h3 class="p-name">NOÉ <em>— the lace balconette</em></h3>
+        <p class="p-desc">Calais lace laid over a soft scaffold. Sheer where it can be, held where it must be.</p>
+        <div class="p-row"><span class="p-price">$74</span>
+          <button class="btn btn-add" data-id="noe"><span>ADD TO BAG</span><i data-lucide="plus"></i></button></div>
+      </div>
+    </article>
+
+    <article class="col-slide product p-c" data-id="lune" style="--w:56vw">
+      <span class="p-index" aria-hidden="true">03</span>
+      <div class="p-media" data-cursor="ADD" role="button" tabindex="0" aria-label="Add Lune to bag">
+        <div class="p-frame"><img src="https://z-cdn-media.chatglm.cn/files/77a311be-4f67-46ca-a254-50b451ad457c.png?auth_key=1888669986-ad4da6606a1048d396241fd726e2f2e4-0-2c1b5bb477633ead98b1d09055e4e0e2" class="c-mid cw-noir" draggable="false" alt="Lune, the seamless second-skin bra, worn in Noir." loading="lazy"></div>
+        <div class="p-swatches" aria-label="Choose colorway">
+          <button class="sw active" data-cw="noir" style="--swc:#24201B" aria-label="Noir"></button>
+          <button class="sw" data-cw="porcelain" style="--swc:#E8DCC9" aria-label="Porcelain"></button>
+        </div>
+      </div>
+      <div class="p-info">
+        <h3 class="p-name">LUNE <em>— the seamless second-skin</em></h3>
+        <p class="p-desc">A nude-feel knit that disappears under everything, including expectations.</p>
+        <div class="p-row"><span class="p-price">$72</span>
+          <button class="btn btn-add" data-id="lune"><span>ADD TO BAG</span><i data-lucide="plus"></i></button></div>
+      </div>
+    </article>
+
+    <article class="col-slide product p-d" data-id="vela" style="--w:48vw">
+      <span class="p-index" aria-hidden="true">04</span>
+      <div class="p-media" data-cursor="ADD" role="button" tabindex="0" aria-label="Add Vela to bag">
+        <div class="p-frame arch"><img src="https://z-cdn-media.chatglm.cn/files/77a311be-4f67-46ca-a254-50b451ad457c.png?auth_key=1888669986-ad4da6606a1048d396241fd726e2f2e4-0-2c1b5bb477633ead98b1d09055e4e0e2" class="c-band cw-champagne" draggable="false" alt="Vela, the silk triangle bra, worn in Champagne." loading="lazy"></div>
+        <div class="p-swatches" aria-label="Choose colorway">
+          <button class="sw active" data-cw="champagne" style="--swc:#D8C09A" aria-label="Champagne"></button>
+          <button class="sw" data-cw="rose" style="--swc:#C08A73" aria-label="Rosewater"></button>
+        </div>
+      </div>
+      <div class="p-info">
+        <h3 class="p-name">VELA <em>— the silk triangle</em></h3>
+        <p class="p-desc">22-momme mulberry silk, bias-cut. Barely a bra. Entirely one.</p>
+        <div class="p-row"><span class="p-price">$79</span>
+          <button class="btn btn-add" data-id="vela"><span>ADD TO BAG</span><i data-lucide="plus"></i></button></div>
+      </div>
+    </article>
+  </div>
+  <div class="col-hud" aria-hidden="true">
+    <span>THE RAIL</span>
+    <span class="col-bar"><span id="col-fill"></span></span>
+    <span id="col-count">00 — 04</span>
+  </div>
+</section>
+
+<!-- ============ 03 ANATOMY / SCROLL DISSECTION ============ -->
+<section id="anatomy" aria-label="Anatomy of a second skin">
+  <div class="ana-grid">
+    <div class="ana-rail">
+      <p class="kicker">03 — ANATOMY</p>
+      <h2 class="display ana-h" data-lines>
+        <span class="rl"><span class="rli">Anatomy of</span></span>
+        <span class="rl"><span class="rli">a <em>second skin.</em></span></span>
+      </h2>
+      <ol class="ana-list">
+        <li class="a-item active"><span class="a-num">01</span><div><h3 class="a-name">Sealed seams</h3><p class="a-det">Bonded flat instead of stitched — nothing raised, nothing to chafe.</p></div></li>
+        <li class="a-item"><span class="a-num">02</span><div><h3 class="a-name">Memory underband</h3><p class="a-det">A knit that recovers its shape past ten thousand wears.</p></div></li>
+        <li class="a-item"><span class="a-num">03</span><div><h3 class="a-name">Sculpted cup</h3><p class="a-det">Lift and shape from cut alone — not a single wire anywhere.</p></div></li>
+        <li class="a-item"><span class="a-num">04</span><div><h3 class="a-name">The sum of it</h3><p class="a-det">Worn together: a system designed to disappear.</p></div></li>
+      </ol>
+      <div class="ana-progress"><span id="ana-fill"></span></div>
+      <p class="ana-hint">SCROLL TO DISSECT</p>
+    </div>
+    <div class="ana-stage">
+      <div class="ana-frame">
+        <img id="ana-img" src="https://z-cdn-media.chatglm.cn/files/77a311be-4f67-46ca-a254-50b451ad457c.png?auth_key=1888669986-ad4da6606a1048d396241fd726e2f2e4-0-2c1b5bb477633ead98b1d09055e4e0e2" class="c-ana" alt="Close-up study of the LUMÉA Aerin bra, zooming through seams, underband and cup as you scroll." loading="lazy">
+        <div class="anno" style="--ax:63%;--ay:20%"><span class="a-line"></span><span class="a-dot"></span><span class="a-lab">BONDED SEAM</span></div>
+        <div class="anno" style="--ax:72%;--ay:62%"><span class="a-line"></span><span class="a-dot"></span><span class="a-lab">MEMORY BAND</span></div>
+        <div class="anno" style="--ax:48%;--ay:32%"><span class="a-line"></span><span class="a-dot"></span><span class="a-lab">SCULPT CUP</span></div>
+        <div class="anno" style="--ax:20%;--ay:84%"><span class="a-line"></span><span class="a-dot"></span><span class="a-lab">THE SYSTEM</span></div>
+      </div>
+      <p class="ana-cap"><span>AERIN — STUDY 04</span><span>PORCELAIN / SEAM-BONDED</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 04 CRAFT / DARK ATELIER ============ -->
+<section id="craft" data-theme="dark" aria-label="The atelier">
+  <svg id="lace" viewBox="0 0 1200 150" preserveAspectRatio="none" aria-hidden="true"></svg>
+  <div class="craft-top">
+    <div>
+      <p class="kicker kicker-dark">04 — THE ATELIER</p>
+      <h2 class="display" data-lines>
+        <span class="rl"><span class="rli">Crafted,</span></span>
+        <span class="rl"><span class="rli"><em>not mass-produced.</em></span></span>
+      </h2>
+    </div>
+    <p class="craft-note rv">Every LUMÉA run is cut, bonded and finished across two ateliers — Calais for the lace, Como for the knits. Nothing leaves until it survives a forty-point hand inspection.</p>
+  </div>
+  <div class="stats">
+    <div class="stat rv"><span class="stat-num" data-final="09">09</span><span class="stat-lab">weeks in every atelier run</span></div>
+    <div class="stat rv"><span class="stat-num" data-final="34">34</span><span class="stat-lab">hands behind each piece</span></div>
+    <div class="stat rv"><span class="stat-num" data-final="00">00</span><span class="stat-lab">wires across the entire line</span></div>
+    <div class="stat rv"><span class="stat-num" data-final="100%">100%</span><span class="stat-lab">traceable European mills</span></div>
+  </div>
+  <div class="craft-band">
+    <img src="https://z-cdn-media.chatglm.cn/files/77a311be-4f67-46ca-a254-50b451ad457c.png?auth_key=1888669986-ad4da6606a1048d396241fd726e2f2e4-0-2c1b5bb477633ead98b1d09055e4e0e2" class="c-detail tint-dark" data-para="1.3" alt="Macro detail of a bonded seam on the LUMÉA Aerin bra in Noir." loading="lazy">
+    <p class="band-cap">AERIN / NOIR — BONDED SEAM, 3× DETAIL</p>
+  </div>
+  <p class="craft-vert" aria-hidden="true">LEAVERS LOOM — CALAIS, FR</p>
+</section>
+
+<!-- ============ 05 FIT ROOM ============ -->
+<section id="fit" aria-label="The fit room">
+  <div class="fit-grid">
+    <div class="fit-panel">
+      <p class="kicker rv">05 — THE FIT ROOM</p>
+      <h2 class="display" data-lines>
+        <span class="rl"><span class="rli">Two numbers.</span></span>
+        <span class="rl"><span class="rli">Thirty <em>seconds.</em></span></span>
+      </h2>
+      <p class="fit-lead rv">No tape measure, no guessing under fluorescent light. Choose your band, choose your cup — we’ll point you at the piece that was cut for you.</p>
+      <div class="sel-group" data-kind="band" role="group" aria-label="Band size">
+        <p class="sel-lab">BAND</p>
+        <div class="sel-row">
+          <button class="sel" data-v="30">30</button><button class="sel" data-v="32">32</button>
+          <button class="sel active" data-v="34">34</button><button class="sel" data-v="36">36</button>
+          <button class="sel" data-v="38">38</button><button class="sel" data-v="40">40</button>
+        </div>
+      </div>
+      <div class="sel-group" data-kind="cup" role="group" aria-label="Cup size">
+        <p class="sel-lab">CUP</p>
+        <div class="sel-row">
+          <button class="sel" data-v="A">A</button><button class="sel" data-v="B">B</button>
+          <button class="sel active" data-v="C">C</button><button class="sel" data-v="D">D</button>
+          <button class="sel" data-v="DD">DD</button><button class="sel" data-v="E">E</button>
+          <button class="sel" data-v="F">F</button>
+        </div>
+      </div>
+      <div class="fx rv" aria-live="polite">
+        <p class="fx-cap">YOUR LUMÉA SIZE</p>
+        <p class="fx-size" id="fx-size">34C</p>
+        <p class="fx-rec" id="fx-rec"></p>
+        <div class="fx-spec">
+          <div class="fx-track"><span class="fx-mark" id="fx-mark"></span></div>
+          <div class="fx-ticks"><span>RUNS SMALL</span><span>TRUE</span><span>GENEROUS</span></div>
+        </div>
+        <div class="fx-actions">
+          <button class="btn btn-primary" id="fx-add"><span>Add Aerin — $68</span></button>
+          <button class="btn" data-modal="tpl-fitguide"><span>HOW WE SIZE</span></button>
+        </div>
+      </div>
+    </div>
+    <div class="fit-media">
+      <div class="fit-img" id="fit-tilt">
+        <img src="https://z-cdn-media.chatglm.cn/files/77a311be-4f67-46ca-a254-50b451ad457c.png?auth_key=1888669986-ad4da6606a1048d396241fd726e2f2e4-0-2c1b5bb477633ead98b1d09055e4e0e2" class="c-side" alt="LUMÉA bra worn, side profile — the lattice back in motion." loading="lazy">
+      </div>
+      <p class="fit-cap">LATTICE BACK — 4-WAY, DOUBLED</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 06 VOICES / STACKING CARDS ============ -->
+<section id="voices" aria-label="Worn by you">
+  <div class="v-head">
+    <p class="kicker">06 — WORN BY YOU</p>
+    <p class="v-note">Unedited. Unpaid. Worn for weeks.</p>
+  </div>
+  <div class="v-stage">
+    <article class="v-card" style="--rot:-1.6deg">
+      <div class="v-thumb arch"><img src="https://z-cdn-media.chatglm.cn/files/77a311be-4f67-46ca-a254-50b451ad457c.png?auth_key=1888669986-ad4da6606a1048d396241fd726e2f2e4-0-2c1b5bb477633ead98b1d09055e4e0e2" class="c-strap cw-rose" alt="Camille wears Aerin in Rosewater." loading="lazy"></div>
+      <div class="v-body">
+        <blockquote>“The first bra I’ve ever <em>forgotten</em> to take off.”</blockquote>
+        <p class="v-meta">CAMILLE R. — AERIN · 32C</p>
+      </div>
+    </article>
+    <article class="v-card" style="--rot:1.1deg">
+      <div class="v-thumb arch"><img src="https://z-cdn-media.chatglm.cn/files/77a311be-4f67-46ca-a254-50b451ad457c.png?auth_key=1888669986-ad4da6606a1048d396241fd726e2f2e4-0-2c1b5bb477633ead98b1d09055e4e0e2" class="c-band cw-noir" alt="Nadia wears Lune in Noir." loading="lazy"></div>
+      <div class="v-body">
+        <blockquote>“I stopped bracing for the 3 p.m. pinch. It just <em>never came.</em>”</blockquote>
+        <p class="v-meta">NADIA K. — LUNE · 36DD</p>
+      </div>
+    </article>
+    <article class="v-card" style="--rot:-0.7deg">
+      <div class="v-thumb arch"><img src="https://z-cdn-media.chatglm.cn/files/77a311be-4f67-46ca-a254-50b451ad457c.png?auth_key=1888669986-ad4da6606a1048d396241fd726e2f2e4-0-2c1b5bb477633ead98b1d09055e4e0e2" class="c-full cw-champagne" alt="Yuki wears Noé in Champagne." loading="lazy"></div>
+      <div class="v-body">
+        <blockquote>“It’s the only one I’ve re-bought in <em>every colorway.</em>”</blockquote>
+        <p class="v-meta">YUKI T. — NOÉ · 34B</p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ============ 07 JOURNAL / ASYMMETRIC EDITORIAL ============ -->
+<section id="journal" aria-label="Skin notes">
+  <p class="kicker rv">07 — SKIN NOTES</p>
+  <h2 class="display" data-lines style="margin-bottom:8vh">
+    <span class="rl"><span class="rli">Notes on</span></span>
+    <span class="rl"><span class="rli"><em>intimacy.</em></span></span>
+  </h2>
+  <div class="j-grid">
+    <figure class="j-img j-a" data-para="1.15">
+      <div class="j-frame"><img src="https://z-cdn-media.chatglm.cn/files/77a311be-4f67-46ca-a254-50b451ad457c.png?auth_key=1888669986-ad4da6606a1048d396241fd726e2f2e4-0-2c1b5bb477633ead98b1d09055e4e0e2" class="c-strap cw-champagne" data-cursor="FIG. 01" alt="Macro study of bias-cut silk on the Vela triangle bra." loading="lazy"></div>
+      <figcaption>FIG. 01 — BIAS SILK, 22 MOMME</figcaption>
+    </figure>
+    <div class="j-quote" data-para="0.7">
+      <p>“Comfort is not the absence of discomfort. It is the <em>presence of ease.</em>”</p>
+    </div>
+    <figure class="j-img j-b" data-para="1.7">
+      <div class="j-frame arch"><img src="https://z-cdn-media.chatglm.cn/files/77a311be-4f67-46ca-a254-50b451ad457c.png?auth_key=1888669986-ad4da6606a1048d396241fd726e2f2e4-0-2c1b5bb477633ead98b1d09055e4e0e2" class="c-band cw-noir" data-cursor="FIG. 02" alt="Study of the memory-knit underband on the Lune bra." loading="lazy"></div>
+      <figcaption>FIG. 02 — UNDERBAND, MEMORY KNIT</figcaption>
+    </figure>
+    <a class="j-link rv" href="#" data-modal="tpl-essay"><span>READ THE NOTE — “ON EASE”</span><i data-lucide="arrow-up-right"></i></a>
+  </div>
+</section>
+
+<!-- ============ 08 FINALE ============ -->
+<section id="finale" aria-label="Begin">
+  <p class="kicker rv" style="min-width:0">08 — BEGIN</p>
+  <h2 class="display fin-h" data-lines>
+    <span class="rl"><span class="rli">Begin with</span></span>
+    <span class="rl"><span class="rli"><em>LUMÉA.</em></span></span>
+  </h2>
+  <div class="fin-actions rv">
+    <button class="btn btn-primary magnetic" id="cta-fit"><span>FIND YOUR FIT</span></button>
+    <button class="btn magnetic" id="cta-shop"><span>SHOP THE COLLECTION</span></button>
+  </div>
+  <div class="nl rv" id="nl-wrap">
+    <p class="nl-cap">FIRST ACCESS — THE SKIN SERIES</p>
+    <form id="nl-form" novalidate>
+      <input id="nl-input" type="email" placeholder="your@email.com" aria-label="Email address" autocomplete="email">
+      <button class="nl-btn magnetic" type="submit" aria-label="Subscribe"><i data-lucide="arrow-right"></i></button>
+    </form>
+    <p class="nl-error" id="nl-error" aria-live="polite"></p>
+  </div>
+</section>
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="marquee" aria-hidden="true">
+    <div class="mq-track">
+      <div class="mq-set"><span>60-DAY FIT GUARANTEE</span><i></i><span>CARBON-NEUTRAL SHIPPING</span><i></i><span>REPAIRS FOR LIFE</span><i></i><span>SMALL-BATCH, ALWAYS</span><i></i><span>BONDED, NEVER WIRED</span><i></i></div>
+      <div class="mq-set"><span>60-DAY FIT GUARANTEE</span><i></i><span>CARBON-NEUTRAL SHIPPING</span><i></i><span>REPAIRS FOR LIFE</span><i></i><span>SMALL-BATCH, ALWAYS</span><i></i><span>BONDED, NEVER WIRED</span><i></i></div>
+    </div>
+  </div>
+  <div class="foot-main">
+    <div class="foot-top">
+      <p class="foot-blurb">Second-skin intimates, cut in small ateliers. Worn, forgotten, loved.</p>
+      <nav class="foot-links" aria-label="Footer">
+        <a href="#collection">Collection</a>
+        <a href="#anatomy">Anatomy</a>
+        <a href="#fit">Fit Room</a>
+        <a href="#" data-modal="tpl-fitguide">Fit Guide</a>
+        <a href="#hero" class="to-top">Top</a>
+      </nav>
+    </div>
+    <div class="foot-mark-wrap" aria-hidden="true"><span class="foot-mark">LUMÉA</span></div>
+    <div class="foot-bottom">
+      <p>© <span id="yr">2025</span> LUMÉA ATELIER</p>
+      <p>A DESIGN PROTOTYPE — CRAFTED WITH SILK &amp; CODE</p>
+    </div>
+  </div>
+</footer>
+
+<!-- BAG DRAWER -->
+<div id="bag-backdrop"></div>
+<aside id="bag" aria-label="Shopping bag" aria-hidden="true">
+  <header class="bag-head">
+    <p>YOUR BAG <span id="bag-title-count"></span></p>
+    <button id="bag-close" aria-label="Close bag"><i data-lucide="x"></i></button>
+  </header>
+  <div id="bag-items"></div>
+  <div id="bag-empty">
+    <i data-lucide="shopping-bag"></i>
+    <p>Your bag is empty.<br>The rail, however, is full.</p>
+    <button class="btn" id="bag-explore"><span>EXPLORE THE COLLECTION</span></button>
+  </div>
+  <div id="bag-foot" style="display:none">
+    <div class="bag-sub"><span>SUBTOTAL</span><span id="bag-subtotal">$0</span></div>
+    <p class="bag-note">Shipping calculated at checkout · 60-day fit guarantee included.</p>
+    <button class="btn btn-primary btn-wide" id="checkout"><span>CHECKOUT</span><i data-lucide="arrow-right"></i></button>
+  </div>
+</aside>
+
+<!-- MODAL -->
+<div id="modal" role="dialog" aria-modal="true" aria-label="Dialog">
+  <div class="modal-card">
+    <button id="modal-close" aria-label="Close dialog"><i data-lucide="x"></i></button>
+    <div id="modal-body"></div>
+  </div>
+</div>
+
+<div id="toasts" aria-live="polite"></div>
+
+<!-- TEMPLATES -->
+<template id="tpl-fitguide">
+  <p class="kicker">THE FIT ROOM</p>
+  <h3 class="mo-title">How we size</h3>
+  <ol class="mo-steps">
+    <li><i data-lucide="ruler"></i><div><h4>Band, first</h4><p>Snug and level — you should fit two fingers under, no more. If it rides up, size down and cup up.</p></div></li>
+    <li><i data-lucide="heart"></i><div><h4>Cup, second</h4><p>No gap at the top, no spill at the edge. Wireless means shape does the work — the cup must match, not fight.</p></div></li>
+    <li><i data-lucide="timer"></i><div><h4>Sixty days</h4><p>Wear it for two months. If it isn’t invisible by then, send it back — free, in the packaging it came in.</p></div></li>
+  </ol>
+  <p class="mo-foot">Between sizes? Take the smaller band — knit relaxes to you, never the other way around.</p>
+</template>
+<template id="tpl-essay">
+  <p class="kicker">SKIN NOTES — Nº 04</p>
+  <h3 class="mo-title">On ease</h3>
+  <p class="mo-p">We kept a fitting-room diary for two years. Thousands of women, one recurring sentence: “I just want to stop thinking about it.” Not softer. Not prettier. <em>Quieter.</em></p>
+  <p class="mo-p">That sentence became the Skin Series. Every decision — bonded seams over stitching, memory knit over boning, cut over padding — was made to remove one thought from your morning. Ease isn’t a feature. It’s the whole point.</p>
+  <p class="mo-sign">— L. MOREAU, CREATIVE DIRECTOR</p>
+</template>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+<script src="https://unpkg.com/lucide@0.454.0/dist/umd/lucide.min.js"></script>
+
+<script>
+(function(){
+'use strict';
+const $=(s,c=document)=>c.querySelector(s);
+const $$=(s,c=document)=>Array.from(c.querySelectorAll(s));
+const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const isTouch=matchMedia('(pointer: coarse)').matches;
+const hasGsap=!!(window.gsap&&window.ScrollTrigger);
+if(hasGsap) gsap.registerPlugin(ScrollTrigger);
+if(reduced||!hasGsap) document.documentElement.classList.add('reduced');
+
+const IMG='https://z-cdn-media.chatglm.cn/files/77a311be-4f67-46ca-a254-50b451ad457c.png?auth_key=1888669986-ad4da6606a1048d396241fd726e2f2e4-0-2c1b5bb477633ead98b1d09055e4e0e2';
+const PRODUCTS={
+  aerin:{name:'Aerin',sub:'The Wireless Sculpt',price:68,cw:'porcelain'},
+  noe:{name:'Noé',sub:'The Lace Balconette',price:74,cw:'rose'},
+  lune:{name:'Lune',sub:'The Seamless Second-Skin',price:72,cw:'noir'},
+  vela:{name:'Vela',sub:'The Silk Triangle',price:79,cw:'champagne'}
+};
+const CW={
+  porcelain:{label:'Porcelain',cls:'cw-porcelain'},
+  rose:{label:'Rosewater',cls:'cw-rose'},
+  noir:{label:'Noir',cls:'cw-noir'},
+  champagne:{label:'Champagne',cls:'cw-champagne'}
+};
+
+/* ---------- smooth scroll ---------- */
+let lenis=null;
+if(!reduced&&hasGsap&&window.Lenis){
+  lenis=new Lenis({duration:1.05});
+  lenis.on('scroll',ScrollTrigger.update);
+  gsap.ticker.add(t=>lenis.raf(t*1000));
+  gsap.ticker.lagSmoothing(0);
+}
+function scrollToEl(t){
+  const el=typeof t==='string'?$(t):t; if(!el) return;
+  if(lenis) lenis.scrollTo(el,{duration:1.3});
+  else el.scrollIntoView({behavior:'smooth'});
+}
+function lockScroll(on){
+  document.documentElement.style.overflow=on?'hidden':'';
+  if(lenis){ on?lenis.stop():lenis.start(); }
+}
+
+/* ---------- toasts ---------- */
+const toastRoot=$('#toasts');
+function toast(msg){
+  const t=document.createElement('div'); t.className='toast';
+  t.innerHTML=`<i data-lucide="check"></i><span>${msg}</span>`;
+  toastRoot.appendChild(t);
+  window.lucide&&lucide.createIcons();
+  if(hasGsap&&!reduced){
+    gsap.fromTo(t,{y:24,opacity:0},{y:0,opacity:1,duration:.5,ease:'power3.out'});
+    setTimeout(()=>gsap.to(t,{y:14,opacity:0,duration:.4,onComplete:()=>t.remove()}),3400);
+  } else setTimeout(()=>t.remove(),3600);
+}
+
+/* ---------- fit state ---------- */
+const cups=['A','B','C','D','DD','E','F'];
+const fit={band:34,cup:'C'};
+function recFor(){
+  const ci=cups.indexOf(fit.cup);
+  if(ci>=4) return {id:'lune',pos:70,note:'For fuller busts, LUNE redistributes weight through the cup wall itself — lift without a single wire.'};
+  if(ci<=1) return {id:'vela',pos:34,note:'Lighter profiles get bias-cut silk that skims instead of scaffolding. VELA was cut for exactly this.'};
+  return {id:'aerin',pos:50,note:'Right in the middle of the range — AERIN’s bonded sculpt runs true and holds its shape all day.'};
+}
+function renderFit(anim){
+  const r=recFor(),p=PRODUCTS[r.id];
+  $('#fx-size').textContent=`${fit.band}${fit.cup}`;
+  $('#fx-rec').innerHTML=`Cut for you: <em>${p.name} — ${p.sub}</em>. ${r.note}`;
+  $('#fx-mark').style.left=r.pos+'%';
+  const btn=$('#fx-add'); btn.dataset.id=r.id; btn.dataset.cw=p.cw;
+  btn.querySelector('span').textContent=`Add ${p.name} — $${p.price}`;
+  if(anim&&hasGsap&&!reduced) gsap.fromTo('#fx-rec',{y:12,opacity:0},{y:0,opacity:1,duration:.5,ease:'power2.out'});
+}
+renderFit(false);
+ $$('.sel').forEach(b=>b.addEventListener('click',()=>{
+  const g=b.closest('.sel-group');
+  $$('.sel',g).forEach(x=>x.classList.remove('active'));
+  b.classList.add('active');
+  if(g.dataset.kind==='band') fit.band=+b.dataset.v; else fit.cup=b.dataset.v;
+  renderFit(true);
+}));
+
+/* ---------- bag ---------- */
+const bag=new Map();
+const bagEl=$('#bag'),bagBackdrop=$('#bag-backdrop'),bagCount=$('#bag-count');
+function openBag(){bagEl.classList.add('open');bagBackdrop.classList.add('open');bagEl.setAttribute('aria-hidden','false');lockScroll(true);}
+function closeBag(){bagEl.classList.remove('open');bagBackdrop.classList.remove('open');bagEl.setAttribute('aria-hidden','true');lockScroll(false);}
+ $('#bag-btn').addEventListener('click',openBag);
+ $('#bag-close').addEventListener('click',closeBag);
+bagBackdrop.addEventListener('click',closeBag);
+ $('#bag-explore').addEventListener('click',()=>{closeBag();setTimeout(()=>scrollToEl('#collection'),300);});
+function addToBag(id,cwKey){
+  const p=PRODUCTS[id];
+  const panel=$(`.product[data-id="${id}"]`);
+  let cw=cwKey;
+  if(!cw&&panel){const a=panel.querySelector('.sw.active');if(a)cw=a.dataset.cw;}
+  if(!cw)cw=p.cw;
+  const size=`${fit.band}${fit.cup}`;
+  const key=`${id}|${cw}|${size}`;
+  const cur=bag.get(key);
+  bag.set(key,{id,cw,size,qty:cur?cur.qty+1:1});
+  renderBag(); openBag();
+  if(hasGsap&&!reduced) gsap.fromTo('#bag-btn',{scale:1.3},{scale:1,duration:.5,ease:'back.out(2)'});
+}
+function renderBag(){
+  const list=$('#bag-items'),empty=$('#bag-empty'),foot=$('#bag-foot');
+  const items=Array.from(bag.values());
+  const count=items.reduce((a,i)=>a+i.qty,0);
+  bagCount.textContent=count;
+  bagCount.parentElement.classList.toggle('has',count>0);
+  $('#bag-title-count').textContent=count?`(${count})`:'';
+  if(!items.length){list.innerHTML='';empty.style.display='flex';foot.style.display='none';return;}
+  empty.style.display='none';foot.style.display='block';
+  list.innerHTML=items.map(it=>{
+    const p=PRODUCTS[it.id],c=CW[it.cw];
+    return `<div class="bag-item" data-key="${it.id}|${it.cw}|${it.size}">
+      <div class="bi-thumb"><img src="${IMG}" class="${c.cls}" alt="${p.name} in ${c.label}"></div>
+      <div class="bi-info"><p class="bi-name">${p.name} — ${c.label}</p>
+        <p class="bi-meta">Size ${it.size} · $${p.price}</p>
+        <div class="bi-qty"><button class="q-btn" data-act="dec" aria-label="Decrease quantity"><i data-lucide="minus"></i></button><span>${it.qty}</span><button class="q-btn" data-act="inc" aria-label="Increase quantity"><i data-lucide="plus"></i></button></div></div>
+      <p class="bi-price">$${p.price*it.qty}</p>
+      <button class="bi-remove" data-act="rm" aria-label="Remove item"><i data-lucide="x"></i></button></div>`;
+  }).join('');
+  window.lucide&&lucide.createIcons();
+  $('#bag-subtotal').textContent='$'+items.reduce((a,i)=>a+PRODUCTS[i.id].price*i.qty,0);
+}
+ $('#bag-items').addEventListener('click',e=>{
+  const btn=e.target.closest('button[data-act]'); if(!btn)return;
+  const row=btn.closest('.bag-item'); const key=row.dataset.key;
+  const it=bag.get(key); if(!it)return;
+  if(btn.dataset.act==='inc') it.qty++;
+  if(btn.dataset.act==='dec') it.qty=Math.max(1,it.qty-1);
+  if(btn.dataset.act==='rm'){bag.delete(key);}
+  renderBag();
+});
+ $('#checkout').addEventListener('click',function(){
+  if(this.dataset.busy)return; this.dataset.busy='1';
+  this.querySelector('span').textContent='PROCESSING…';
+  setTimeout(()=>{
+    this.querySelector('span').textContent='CHECKOUT';
+    delete this.dataset.busy;
+    toast('Prototype checkout — nothing was charged, everything was admired.');
+  },1100);
+});
+ $$('.btn-add').forEach(b=>b.addEventListener('click',()=>addToBag(b.dataset.id)));
+ $$('.p-media').forEach(m=>{
+  const add=()=>addToBag(m.closest('.product').dataset.id);
+  m.addEventListener('click',add);
+  m.addEventListener('keydown',e=>{
+    if(e.key==='Enter'||e.key===' '){e.preventDefault();add();}
+  });
+});
+/* colorway switcher */
+ $$('.p-swatches .sw').forEach(sw=>sw.addEventListener('click',e=>{
+  e.stopPropagation();
+  const art=sw.closest('.product');
+  $$('.sw',art).forEach(s=>s.classList.remove('active'));
+  sw.classList.add('active');
+  const img=art.querySelector('.p-frame img');
+  img.classList.remove('cw-porcelain','cw-rose','cw-noir','cw-champagne');
+  img.classList.add(CW[sw.dataset.cw].cls);
+}));
+
+/* ---------- menu ---------- */
+const menu=$('#menu'),burger=$('#burger'),nav=$('#nav');
+function openMenu(){
+  menu.classList.add('open');menu.setAttribute('aria-hidden','false');
+  burger.classList.add('active');burger.setAttribute('aria-expanded','true');
+  nav.classList.add('menu-open','on-dark');lockScroll(true);
+  if(hasGsap&&!reduced){
+    gsap.fromTo('.m-link',{y:44,opacity:0},{y:0,opacity:1,duration:.7,stagger:.07,delay:.3,ease:'power3.out'});
+    gsap.fromTo('.m-foot',{opacity:0},{opacity:1,duration:.6,delay:.75});
+  }
+}
+function closeMenu(){
+  menu.classList.remove('open');menu.setAttribute('aria-hidden','true');
+  burger.classList.remove('active');burger.setAttribute('aria-expanded','false');
+  nav.classList.remove('menu-open','on-dark');lockScroll(false);
+}
+burger.addEventListener('click',()=>menu.classList.contains('open')?closeMenu():openMenu());
+ $$('.m-link').forEach(a=>a.addEventListener('click',e=>{
+  e.preventDefault();const href=a.getAttribute('href');
+  closeMenu();setTimeout(()=>scrollToEl(href),450);
+}));
+
+/* ---------- modal ---------- */
+let lastFocus=null;
+const modal=$('#modal');
+function openModal(tplId){
+  const tpl=$('#'+tplId);if(!tpl)return;
+  lastFocus=document.activeElement;
+  const body=$('#modal-body');body.innerHTML='';
+  body.appendChild(tpl.content.cloneNode(true));
+  window.lucide&&lucide.createIcons();
+  modal.classList.add('open');lockScroll(true);
+  $('#modal-close').focus();
+}
+function closeModal(){
+  modal.classList.remove('open');lockScroll(false);
+  if(lastFocus&&lastFocus.focus)lastFocus.focus();
+}
+ $$('[data-modal]').forEach(el=>el.addEventListener('click',e=>{e.preventDefault();openModal(el.dataset.modal);}));
+ $('#modal-close').addEventListener('click',closeModal);
+modal.addEventListener('click',e=>{if(e.target===modal)closeModal();});
+
+/* ---------- escape stack ---------- */
+window.addEventListener('keydown',e=>{
+  if(e.key!=='Escape')return;
+  if(menu.classList.contains('open'))return closeMenu();
+  if(modal.classList.contains('open'))return closeModal();
+  if(bagEl.classList.contains('open'))return closeBag();
+});
+
+/* ---------- anchors ---------- */
+ $$('a[href^="#"]').forEach(a=>{
+  if(a.classList.contains('m-link')||a.hasAttribute('data-modal'))return;
+  a.addEventListener('click',e=>{
+    const href=a.getAttribute('href');
+    if(!href||href==='#')return;
+    e.preventDefault();
+    if(href==='#hero'){lenis?lenis.scrollTo(0,{duration:1.4}):window.scrollTo({top:0,behavior:'smooth'});return;}
+    scrollToEl(href);
+  });
+});
+ $('#cta-fit').addEventListener('click',()=>scrollToEl('#fit'));
+ $('#cta-shop').addEventListener('click',()=>scrollToEl('#collection'));
+
+/* ---------- newsletter ---------- */
+ $('#nl-form').addEventListener('submit',e=>{
+  e.preventDefault();
+  const inp=$('#nl-input'),v=inp.value.trim(),err=$('#nl-error');
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)){
+    err.textContent='That address doesn’t look right — one more try?';
+    inp.classList.add('bad');
+    if(hasGsap&&!reduced)gsap.fromTo(inp,{x:-7},{x:0,duration:.45,ease:'elastic.out(1,0.35)'});
+    return;
+  }
+  err.textContent='';inp.classList.remove('bad');
+  $('#nl-wrap').innerHTML='<div class="nl-done"><i data-lucide="check"></i><span>You’re in. First access lands before the drop.</span></div>';
+  window.lucide&&lucide.createIcons();
+  toast('Welcome to the inner circle.');
+});
+
+/* ---------- nav scrolled ---------- */
+const onScroll=()=>nav.classList.toggle('scrolled',(window.scrollY||window.pageYOffset)>40);
+window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+
+/* ---------- fit image tilt ---------- */
+if(!isTouch&&!reduced){
+  const tilt=$('#fit-tilt');
+  if(tilt){
+    tilt.addEventListener('pointermove',e=>{
+      const r=tilt.getBoundingClientRect();
+      const rx=((e.clientY-r.top)/r.height-.5)*-6,ry=((e.clientX-r.left)/r.width-.5)*6;
+      tilt.style.transform=`perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg)`;
+    });
+    tilt.addEventListener('pointerleave',()=>{tilt.style.transform='';});
+  }
+}
+
+/* ---------- magnetic buttons ---------- */
+if(!isTouch&&!reduced&&hasGsap){
+  $$('.magnetic').forEach(btn=>{
+    btn.addEventListener('pointermove',e=>{
+      const r=btn.getBoundingClientRect();
+      gsap.to(btn,{x:(e.clientX-r.left-r.width/2)*.32,y:(e.clientY-r.top-r.height/2)*.36,duration:.5,ease:'power3.out'});
+    });
+    btn.addEventListener('pointerleave',()=>gsap.to(btn,{x:0,y:0,duration:.7,ease:'elastic.out(1,0.35)'}));
+  });
+}
+
+/* ---------- custom cursor ---------- */
+if(!isTouch&&!reduced){
+  document.body.classList.add('has-cursor');
+  const cur=$('#cursor'),lab=$('#cursor-label');
+  let xTo=null,yTo=null;
+  if(hasGsap){
+    xTo=gsap.quickTo(cur,'x',{duration:.32,ease:'power3'});
+    yTo=gsap.quickTo(cur,'y',{duration:.32,ease:'power3'});
+  }
+  window.addEventListener('pointermove',e=>{
+    if(xTo){xTo(e.clientX);yTo(e.clientY);}
+    else cur.style.transform=`translate(${e.clientX}px,${e.clientY}px)`;
+  },{passive:true});
+  document.addEventListener('pointerover',e=>{
+    const c=e.target.closest('[data-cursor]');
+    const l=e.target.closest('a,button,.sel,[role="button"]');
+    if(c){lab.textContent=c.dataset.cursor;cur.classList.add('label');}
+    else cur.classList.remove('label');
+    cur.classList.toggle('grow',!!l&&!c);
+  });
+}
+
+/* ---------- lace generator ---------- */
+const laceData=(function buildLace(){
+  const svg=$('#lace');
+  if(!svg)return{paths:[],dots:[]};
+  const NS='http://www.w3.org/2000/svg',W=1200,H=150,n=16,sw=W/n,base=H-16;
+  let d1=`M 0 ${base}`,d2=`M 0 ${base}`;
+  for(let i=0;i<n;i++){
+    const x=i*sw;
+    d1+=` Q ${x+sw/2} 10 ${x+sw} ${base}`;
+    d2+=` Q ${x+sw/4} ${base-26} ${x+sw/2} ${base-12} Q ${x+sw*0.75} ${base-26} ${x+sw} ${base}`;
+  }
+  const mk=d=>{const p=document.createElementNS(NS,'path');p.setAttribute('d',d);svg.appendChild(p);return p;};
+  const p1=mk(d1),p2=mk(d2);
+  const dots=[];
+  for(let i=0;i<=n;i++){
+    const c=document.createElementNS(NS,'circle');
+    c.setAttribute('cx',i*sw);c.setAttribute('cy',base);c.setAttribute('r',2.3);
+    svg.appendChild(c);dots.push(c);
+    const c2=document.createElementNS(NS,'circle');
+    c2.setAttribute('cx',i*sw-sw/2);c2.setAttribute('cy',base-14);c2.setAttribute('r',1.4);
+    svg.appendChild(c2);dots.push(c2);
+  }
+  [p1,p2].forEach(p=>{
+    const len=p.getTotalLength();
+    p.style.strokeDasharray=len;p.style.strokeDashoffset=len;
+  });
+  if(document.documentElement.classList.contains('reduced')){
+    p1.style.strokeDashoffset='0';p2.style.strokeDashoffset='0';
+  }
+  return{paths:[p1,p2],dots};
+})();
+
+/* ---------- counters (static values when reduced) ---------- */
+ $$('.stat-num').forEach(el=>{
+  const fin=el.dataset.final,suffix=fin.includes('%')?'%':'';
+  const target=parseInt(fin,10),pad=fin.length-suffix.length===2;
+  if(reduced||!hasGsap){el.textContent=fin;return;}
+  const o={v:0};
+  gsap.to(o,{v:target,duration:1.8,ease:'power2.out',
+    onUpdate:()=>{let s=String(Math.round(o.v));if(pad)s=s.padStart(2,'0');el.textContent=s+suffix;},
+    scrollTrigger:{trigger:el,start:'top 88%'}});
+});
+ $('#yr').textContent=new Date().getFullYear();
+
+/* ================= MOTION LAYER ================= */
+async function preloader(){
+  const loader=$('#loader');
+  if(!loader)return;
+  if(reduced||!hasGsap){loader.remove();return;}
+  const num=$('#ld-num'),bar=$('#ld-bar-fill'),state={p:0};
+  const counting=gsap.to(state,{p:100,duration:1.6,ease:'power2.inOut',onUpdate:()=>{
+    num.textContent=String(Math.round(state.p)).padStart(3,'0');
+    bar.style.transform=`scaleX(${state.p/100})`;
+  }});
+  const assets=Promise.all([
+    (document.fonts?document.fonts.ready.catch(()=>{}):Promise.resolve()),
+    new Promise(r=>{const im=new Image();im.onload=im.onerror=()=>r();im.src=IMG;setTimeout(r,2800);})
+  ]);
+  await Promise.all([assets,counting]);
+  gsap.timeline({defaults:{ease:'expo.inOut'}})
+    .to(loader,{yPercent:-101,duration:.95})
+    .set(loader,{display:'none'})
+    .from('.hm-letter',{yPercent:118,rotate:6,duration:1.15,stagger:.06,ease:'expo.out'},'-=.5')
+    .from('.hero-fade',{y:24,opacity:0,duration:.9,stagger:.09,ease:'power3.out'},'-=.85')
+    .from('#nav',{y:-26,opacity:0,duration:.8,ease:'power3.out'},'-=.75')
+    .add(()=>loader.remove());
+}
+preloader();
+
+if(hasGsap&&!reduced){
+  /* generic reveals */
+  $$('.rv').forEach(el=>gsap.from(el,{y:34,opacity:0,duration:1,ease:'power3.out',
+    scrollTrigger:{trigger:el,start:'top 88%'}}));
+  $$('[data-lines]').forEach(g=>{
+    const t=$$('.rli',g);if(!t.length)return;
+    gsap.from(t,{yPercent:115,duration:1.05,stagger:.09,ease:'expo.out',
+      scrollTrigger:{trigger:g,start:'top 86%'}});
+  });
+  /* parallax */
+  $$('[data-para]').forEach(el=>{
+    const sp=parseFloat(el.dataset.para)||1;
+    gsap.fromTo(el,{y:30*sp},{y:-30*sp,ease:'none',
+      scrollTrigger:{trigger:el.closest('section')||el,start:'top bottom',end:'bottom top',scrub:true}});
+  });
+  /* hero exit */
+  gsap.to('.hero-inner',{yPercent:-26,opacity:.2,ease:'none',
+    scrollTrigger:{trigger:'#hero',start:'top top',end:'bottom top',scrub:true}});
+  gsap.to('#silk',{opacity:.15,ease:'none',
+    scrollTrigger:{trigger:'#hero',start:'top top',end:'bottom top',scrub:true}});
+  /* creed word fill */
+  const creed=$('#creed');
+  creed.classList.add('dim');
+  creed.innerHTML=creed.textContent.trim().split(/\s+/).map(w=>`<span class="w">${w}</span>`).join(' ');
+  gsap.to('#creed .w',{color:'#241B15',stagger:.06,ease:'none',
+    scrollTrigger:{trigger:creed,start:'top 78%',end:'bottom 45%',scrub:.6}});
+  /* horizontal collection */
+  const track=$('#col-track'),slides=$$('.col-slide');
+  const dist=()=>Math.max(0,track.scrollWidth-window.innerWidth);
+  const hor=gsap.to(track,{x:()=>-dist(),ease:'none',scrollTrigger:{
+    trigger:'#collection',start:'top top',end:()=>'+='+dist(),scrub:.75,
+    pin:true,anticipatePin:1,invalidateOnRefresh:true,
+    onUpdate:s=>{
+      $('#col-fill').style.transform=`scaleX(${s.progress})`;
+      const cx=-gsap.getProperty(track,'x')+window.innerWidth/2;
+      let n=0;
+      slides.forEach(sl=>{if(sl.classList.contains('product')&&sl.offsetLeft+sl.offsetWidth/2<cx)n++;});
+      $('#col-count').textContent=String(n).padStart(2,'0')+' — 04';
+    }}});
+  $$('.p-frame').forEach(el=>gsap.from(el,{y:80,opacity:0,duration:.9,ease:'power3.out',clearProps:'all',
+    scrollTrigger:{trigger:el,containerAnimation:hor,start:'left 95%'}}));
+  $$('.p-info').forEach(el=>gsap.from(el,{x:70,opacity:0,duration:.9,ease:'power3.out',clearProps:'all',
+    scrollTrigger:{trigger:el,containerAnimation:hor,start:'left 95%'}}));
+  /* anatomy dissection */
+  const anaImg=$('#ana-img'),anaItems=$$('.a-item'),annos=$$('.anno'),anaFill=$('#ana-fill');
+  const KEYS=[{s:2.7,x:63,y:20},{s:2.1,x:72,y:62},{s:1.55,x:48,y:32},{s:1.0,x:50,y:30}];
+  function updateAna(p){
+    const f=Math.min(.9999,p*3);
+    const i=Math.min(KEYS.length-2,Math.floor(f));
+    let t=f-i;t=t*t*(3-2*t);
+    const a=KEYS[i],b=KEYS[i+1];
+    const s=a.s+(b.s-a.s)*t,x=a.x+(b.x-a.x)*t,y=a.y+(b.y-a.y)*t;
+    anaImg.style.transformOrigin=`${x}% ${y}%`;
+    anaImg.style.transform=`scale(${s.toFixed(4)})`;
+    const stage=Math.round(f);
+    anaItems.forEach((li,idx)=>li.classList.toggle('active',idx===stage));
+    annos.forEach((an,idx)=>an.classList.toggle('on',idx===stage));
+    anaFill.style.transform=`scaleX(${p})`;
+  }
+  updateAna(0);
+  ScrollTrigger.create({trigger:'#anatomy',start:'top top',end:'+=260%',pin:true,scrub:.4,
+    anticipatePin:1,onUpdate:s=>updateAna(s.progress)});
+  /* lace draw */
+  if(laceData.paths.length){
+    gsap.to(laceData.paths,{strokeDashoffset:0,ease:'none',stagger:.5,
+      scrollTrigger:{trigger:'#craft',start:'top 90%',end:'top 25%',scrub:.4}});
+    gsap.from(laceData.dots,{opacity:0,stagger:.02,ease:'none',
+      scrollTrigger:{trigger:'#craft',start:'top 85%',end:'top 30%',scrub:.4}});
+  }
+  /* voices stacking */
+  const cards=$$('.v-card');
+  const vt=gsap.timeline({scrollTrigger:{trigger:'#voices',start:'top top',end:'+=230%',
+    pin:true,scrub:.6,anticipatePin:1}});
+  cards.forEach((c,i)=>{
+    if(!i)return;
+    vt.fromTo(c,{yPercent:110},{yPercent:0,ease:'none'},i)
+      .to(cards[i-1],{scale:.93,opacity:.5,ease:'none'},i);
+  });
+  /* footer wordmark */
+  gsap.fromTo('.foot-mark',{yPercent:60},{yPercent:6,ease:'none',
+    scrollTrigger:{trigger:'footer',start:'top bottom',end:'bottom bottom',scrub:true}});
+  /* chapter indicator */
+  const chapters=[['#hero','00 — OVERTURE'],['#manifesto','01 — THE BELIEF'],
+    ['#collection','02 — THE COLLECTION'],['#anatomy','03 — ANATOMY'],
+    ['#craft','04 — THE ATELIER'],['#fit','05 — THE FIT ROOM'],
+    ['#voices','06 — WORN BY YOU'],['#journal','07 — SKIN NOTES'],['#finale','08 — BEGIN']];
+  const chapLabel=$('#chapter span');
+  chapters.forEach(([sel,label])=>ScrollTrigger.create({trigger:sel,start:'top 55%',end:'bottom 55%',
+    onToggle:s=>{if(s.isActive&&chapLabel)chapLabel.textContent=label;}}));
+  /* nav theme over dark section */
+  ScrollTrigger.create({trigger:'#craft',start:'top 70px',end:'bottom 70px',
+    onToggle:s=>{
+      nav.classList.toggle('on-dark',s.isActive);
+      const ch=$('#chapter');ch&&ch.classList.toggle('on-dark',s.isActive);
+    }});
+  window.addEventListener('load',()=>ScrollTrigger.refresh());
+}
+
+window.lucide&&lucide.createIcons();
+})();
+</script>
+
+<!-- ============ 3D SILK — hero simulation (drag to disturb) ============ -->
+<script type="module">
+(async()=>{
+  const host=document.getElementById('silk');
+  if(!host)return;
+  const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let THREE;
+  try{ THREE=await import('https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js'); }
+  catch(e){ document.body.classList.add('no-webgl'); return; }
+  let renderer;
+  try{ renderer=new THREE.WebGLRenderer({antialias:true,alpha:true,powerPreference:'high-performance'}); }
+  catch(e){ document.body.classList.add('no-webgl'); return; }
+
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,1.75));
+  renderer.setSize(host.clientWidth,host.clientHeight);
+  host.appendChild(renderer.domElement);
+  const canvas=renderer.domElement;
+  canvas.style.touchAction='pan-y';
+
+  const scene=new THREE.Scene();
+  const camera=new THREE.PerspectiveCamera(30,host.clientWidth/host.clientHeight,0.1,100);
+  camera.position.set(0,0,8);
+  const group=new THREE.Group();
+  scene.add(group);
+
+  const uniforms={
+    uTime:{value:0},uPtr:{value:new THREE.Vector2(0,0)},uHover:{value:0},
+    uColA:{value:new THREE.Color('#EFE4D2')},
+    uColB:{value:new THREE.Color('#C69078')},
+    uColC:{value:new THREE.Color('#7C4534')}
+  };
+  const VERT=`
+    uniform float uTime; uniform vec2 uPtr; uniform float uHover;
+    varying vec3 vN; varying vec3 vW; varying float vZ;
+    float wave(vec2 p, float t){
+      float z = 0.0;
+      z += sin(p.x*0.5 + t*0.62)*0.34;
+      z += sin(p.y*0.85 - t*0.48)*0.24;
+      z += sin((p.x+p.y)*0.33 + t*0.3)*0.30;
+      z += sin(p.x*1.6 - t*0.85)*sin(p.y*1.35 + t*0.55)*0.14;
+      float d = distance(p, uPtr);
+      z += exp(-d*d*0.5)*uHover*(0.5*sin(t*2.8 - d*2.6));
+      return z;
+    }
+    void main(){
+      vec3 p = position;
+      float e = 0.09;
+      float z  = wave(p.xy, uTime);
+      float zx = wave(p.xy+vec2(e,0.0), uTime);
+      float zy = wave(p.xy+vec2(0.0,e), uTime);
+      p.z += z;
+      vec3 n = normalize(vec3(-(zx-z)/e, -(zy-z)/e, 1.4));
+      vN = normalize(normalMatrix * n);
+      vZ = z;
+      vec4 wp = modelMatrix * vec4(p, 1.0);
+      vW = wp.xyz;
+      gl_Position = projectionMatrix * viewMatrix * wp;
+    }`;
+  const FRAG=`
+    precision highp float;
+    uniform vec3 uColA; uniform vec3 uColB; uniform vec3 uColC;
+    varying vec3 vN; varying vec3 vW; varying float vZ;
+    void main(){
+      vec3 N = normalize(vN);
+      vec3 V = normalize(cameraPosition - vW);
+      vec3 L = normalize(vec3(0.45, 0.85, 0.55));
+      float dif = clamp(dot(N,L), 0.0, 1.0);
+      float bak = clamp(dot(N, normalize(vec3(-0.6,-0.2,0.5))), 0.0, 1.0)*0.35;
+      float fre = pow(1.0 - clamp(abs(dot(N,V)), 0.0, 1.0), 2.0);
+      float fold = smoothstep(-0.4, 0.6, vZ);
+      vec3 col = mix(uColA, uColB, fold*0.75);
+      col = mix(col, uColC, fre*0.5);
+      col *= 0.52 + dif*0.62 + bak;
+      gl_FragColor = vec4(col, 1.0);
+    }`;
+  const mesh=new THREE.Mesh(
+    new THREE.PlaneGeometry(16,11,190,130),
+    new THREE.ShaderMaterial({uniforms,vertexShader:VERT,fragmentShader:FRAG,side:THREE.DoubleSide})
+  );
+  group.add(mesh);
+  group.rotation.x=-0.33;
+
+  /* pointer -> cloth-local ripple */
+  const ray=new THREE.Raycaster(),ndc=new THREE.Vector2();
+  const plane=new THREE.Plane(),hit=new THREE.Vector3(),nrm=new THREE.Vector3();
+  let hoverT=0,lastMove=0;
+  function setPointer(cx,cy){
+    const r=canvas.getBoundingClientRect();
+    if(!r.width||!r.height)return;
+    ndc.x=((cx-r.left)/r.width)*2-1;
+    ndc.y=-((cy-r.top)/r.height)*2+1;
+    ray.setFromCamera(ndc,camera);
+    nrm.set(0,0,1).applyQuaternion(group.quaternion);
+    plane.setFromNormalAndCoplanarPoint(nrm,group.position);
+    if(ray.ray.intersectPlane(plane,hit)){
+      const l=mesh.worldToLocal(hit.clone());
+      uniforms.uPtr.value.set(l.x,l.y);
+    }
+    hoverT=1;lastMove=performance.now();
+  }
+  /* drag to rotate */
+  let drag=null,tRY=0,tRX=0;
+  canvas.style.cursor='grab';
+  canvas.addEventListener('pointerdown',e=>{
+    drag={x:e.clientX,y:e.clientY};
+    try{canvas.setPointerCapture(e.pointerId);}catch(_){}
+  });
+  canvas.addEventListener('pointermove',e=>{
+    setPointer(e.clientX,e.clientY);
+    if(!drag)return;
+    const dx=e.clientX-drag.x,dy=e.clientY-drag.y;
+    if(e.pointerType==='touch'&&Math.abs(dy)>Math.abs(dx)*1.3){drag=null;return;}
+    tRY+=dx*0.0045;
+    tRX=Math.max(-0.45,Math.min(0.3,tRX+dy*0.0025));
+    drag={x:e.clientX,y:e.clientY};
+  });
+  ['pointerup','pointercancel'].forEach(ev=>canvas.addEventListener(ev,()=>{drag=null;}));
+  host.addEventListener('pointerleave',()=>{hoverT=0;});
+
+  window.addEventListener('resize',()=>{
+    const w=host.clientWidth,h=host.clientHeight;
+    if(!w||!h)return;
+    camera.aspect=w/h;camera.updateProjectionMatrix();
+    renderer.setSize(w,h);
+  });
+
+  let visible=true;
+  new IntersectionObserver(en=>{visible=en[0].isIntersecting;},{threshold:0.01}).observe(host);
+
+  const clock=new THREE.Clock();
+  function tick(){
+    requestAnimationFrame(tick);
+    if(document.hidden||!visible)return;
+    const t=clock.getElapsedTime();
+    uniforms.uTime.value=t;
+    if(performance.now()-lastMove>3500){
+      uniforms.uPtr.value.set(Math.sin(t*0.5)*3.2,Math.cos(t*0.38)*2.1);
+      hoverT=0.55;
+    }
+    uniforms.uHover.value+=(hoverT-uniforms.uHover.value)*0.06;
+    const sway=Math.sin(t*0.21)*0.055;
+    group.rotation.y+=((tRY+sway)-group.rotation.y)*0.06;
+    group.rotation.x+=((-0.33+tRX)-group.rotation.x)*0.06;
+    camera.position.x+=(ndc.x*0.35-camera.position.x)*0.03;
+    camera.position.y+=(ndc.y*0.25-camera.position.y)*0.03;
+    camera.lookAt(0,0,0);
+    renderer.render(scene,camera);
+  }
+  if(reduced){
+    uniforms.uTime.value=4.0;uniforms.uHover.value=0.5;
+    uniforms.uPtr.value.set(1.5,0.8);
+    renderer.render(scene,camera);
+  } else tick();
+})();
+</script>
+</body>
+</html>
